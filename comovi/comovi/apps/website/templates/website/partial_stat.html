@@ -1,0 +1,38 @@
+<div class="col-md-4 col-vlg-3 col-sm-6">
+    <div class="tiles {{ stat.color.value }} m-b-10">
+        <div class="tiles-body">
+            <div class="tiles-title text-uppercase">{{ stat.title }}</div>
+            <div class="widget-stats">
+                <div class="wrapper transparent">
+                    <span class="item-title">{{ stat.total_title }}</span> <span
+                        class="item-count animate-number semi-bold" data-value="{{ stat.total }}"
+                        data-animation-duration="700">{{ stat.total }}</span>
+                </div>
+            </div>
+            <div class="widget-stats">
+                <div class="wrapper transparent">
+                    <span class="item-title">{{ stat.first_value_title }}</span> <span
+                        class="item-count animate-number semi-bold"
+                        data-value="{{ stat.first_value }}"
+                        data-animation-duration="700">{{ stat.first_value }}</span>
+                </div>
+            </div>
+            <div class="widget-stats ">
+                <div class="wrapper last">
+                    <span class="item-title">{{ stat.second_value_title }}</span> <span
+                        class="item-count animate-number semi-bold"
+                        data-value="{{ stat.second_value }}"
+                        data-animation-duration="700">{{ stat.second_value }}</span>
+                </div>
+            </div>
+            <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
+                <div class="progress-bar progress-bar-white animate-progress-bar"
+                     data-percentage="{{ stat.percentage_value }}%"
+                     style="width: {{ stat.percentage_value|floatformat:2 }}%;"></div>
+            </div>
+            <div class="description"><span
+                    class="text-white mini-description ">{{ stat.percentage_label }}</span>
+            </div>
+        </div>
+    </div>
+</div>

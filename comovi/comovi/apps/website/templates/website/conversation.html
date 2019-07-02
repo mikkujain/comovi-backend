@@ -1,0 +1,130 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block title %}
+    My Conversations
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    textarea.form-control {
+    width: 770px;
+}
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+      <h2>{% trans 'My messages' %}</h2>
+      <ol class="breadcrumb">
+          <li>
+              <a href="{% url 'website:index' %}">{% trans "Home" %}</a>
+          </li>
+          <li class="active">
+              <a href="{% url 'website:inbox' %}"><strong>{% trans 'Inbox' %}</strong></a>
+          </li>
+      </ol>
+  </div>
+</div> 
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-content">
+
+                    <h3><strong>Subject Name:-</strong> {{ conversation.subject }}</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox chat-view">
+
+                <div class="ibox-title">
+                	{% if conversation.get_last_message %}
+                    <small class="float-right text-muted">Last message:  {{ conversation.get_last_message.date_creation|date:"D, d M, Y - h:i A" }}</small>
+                    {% endif %}
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-9 ">
+                            <div class="chat-discussion">
+                            	{% for message in conversation.messages.all|dictsort:"date_creation" %}
+                            	{% if message.user == request.user %}
+                                <div class="chat-message left">
+                                    <img class="message-avatar" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% endif %}" alt="">
+                                    <div class="message">
+                                        <a class="message-author" href="#">{{ user.get_full_name }}</a>
+										<span class="message-date"> {{ message.date_creation|date:"D, d M, Y - h:i:s A" }} </span>
+                                        <span class="message-content">
+										{{ message.message }}
+                                        </span>
+                                    </div>
+                                </div>
+                                {% elif request.user != conversation.user and message.user == conversation.user %}
+                                <div class="chat-message right">
+                                    <img class="message-avatar" src="{% if message.user.profile_picture %}{{ message.user.profile_picture.url }}{% endif %}" alt="">
+                                    <div class="message">
+                                        <a class="message-author" href="#">{{ message.user.get_full_name }}</a>
+                                        <span class="message-date">  {{ message.date_creation|date:"D, d M, Y - h:i:s A" }} </span>
+                                        <span class="message-content">
+										{{ message.message }}
+                                        </span>
+                                    </div>
+                                </div>
+                                {% elif request.user == conversation.user %}
+                                <div class="chat-message right">
+                                    <img class="message-avatar" src="{% if message.user.profile_picture %}{{ message.user.profile_picture.url }}{% endif %}" alt="">
+                                    <div class="message">
+                                        <a class="message-author" href="#"> {{ message.user.get_full_name }}</a>
+                                        <span class="message-date">  {{ message.date_creation|date:"D, d M, Y - h:i:s A" }} </span>
+                                        <span class="message-content">
+										{{ message.message }}
+                                        </span>
+                                    </div>
+                                </div>
+	                            {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="chat-users">
+                                <div class="users-list">
+                                    <div class="chat-user">
+                                        <img class="chat-avatar" src="{% if conversation.user.profile_picture %}{{ conversation.user.profile_picture.url }}{% endif %}" alt="">
+                                        <div class="chat-user-name">
+                                            <a href="#">{{ conversation.user.get_full_name }}</a>
+                                        </div>
+                                    </div>
+                                    {% for user in conversation.receivers.all %}
+                                    <div class="chat-user">
+                                        <img class="chat-avatar" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% endif %}" alt="">
+                                        <div class="chat-user-name">
+                                            <a href="#">{{ user.get_full_name }}</a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="chat-message-form">
+                                <div class="form-group">
+                                    <form method="post" action=".">
+                                    	{% csrf_token %}
+                                    	<textarea class="form-control message-input" name="message" required placeholder="Enter message text"></textarea>
+                                    	<input type="submit" class="btn btn-primary" value="Send" style="margin-top: 10px;">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

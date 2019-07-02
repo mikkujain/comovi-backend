@@ -1,0 +1,76 @@
+{% load i18n %}
+{% load static from staticfiles %}
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <div class="profile-wrapper sm pr-img">
+      <a href="{% url 'website:index' %}"><img src="/static/webarch/img/logos-(2).png" width="100" height="65" alt=""></a>                                                            
+    </div>
+    <ul class="nav metismenu" id="side-menu">
+        {% if request.user.admin_profile %}
+
+          <li class="{% if request.resolver_match.url_name == 'property' %}active{% endif %}">
+              <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">{% trans "My Buildings" %}</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                  {% for p in request.user.admin_profile.my_properties %}
+                      <li {% if property %}{% if property.id == p.id %}class="active"{% endif %}{% endif %}>
+                        <a href="{% url 'website:property' p.id %}">{{ p.name }}</a>
+                      </li>
+                  {% endfor %}  
+              </ul>
+          </li>
+
+          <li class="{% if request.resolver_match.url_name == 'newspaper' %}active{% endif %}">
+             <a href="{% url 'website:newspaper' %}">
+                 <i class="material-icons">new_releases</i>
+                 <span class="title">{% trans 'Notices' %}</span>
+             </a>
+          </li>
+      
+       {% elif request.user.owner_profile %}
+          <li class="{% if request.resolver_match.url_name == 'payments' %}active{% endif %}">
+              <a href="{% url 'website:payments' %}">
+                  <i class="material-icons">payments</i>
+                  <span class="title">{% trans 'Payments' %}</span>
+              </a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'payment_history' %}active{% endif %}">
+              <a href="{% url 'website:payment_history' %}">
+                  <i class="material-icons">history</i>
+                  <span class="title">{% trans 'Payment history' %}</span>
+              </a>
+          </li>
+
+          <li class="{% if request.resolver_match.url_name == 'newspaper' %}active{% endif %}">
+             <a href="{% url 'website:newspaper' %}">
+                 <i class="material-icons">new_releases</i>
+                 <span class="title">{% trans 'Notices' %}</span>
+                 {% if not user.getNewsCount == 0 %}
+                    {{ user.getNewsCount }}
+                 {% endif %}
+             </a>
+          </li>
+        {% endif %}
+
+       {% with request.resolver_match.url_name as url_name %}
+           <li class="{% if url_name == 'inbox' or url_name == 'inbox_sent' %}active{% endif %}">
+              <a href="{% url 'website:inbox' %}">
+                 <i class="material-icons">email</i>
+                 <span class="title">{% trans "Inbox" %}</span>
+                 {% if not user.unread_messages == 0 %}
+                    <span class=" badge badge-disable pull-right "></span>
+                    {{ user.unread_messages }}                    
+                  {% endif %}                             
+              </a>
+           </li>
+       {% endwith %}
+
+        <li>
+          <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">{% trans "Reportes" %}</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse">
+              <li><a href="#">{% trans "Rickshaw Charts" %}</a></li>
+              
+          </ul>
+        </li>
+      </ul>
+    </div>
+</nav>

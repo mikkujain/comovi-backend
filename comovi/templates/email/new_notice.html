@@ -1,0 +1,25 @@
+{% extends 'email/base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% block content %}
+	<table class="body-wrap">
+	    <tr>
+	        <td></td>
+	        <td class="container" width="600" style="display: block;max-width: 600px; margin: 0 auto;clear: both;">
+	            <div class="content">
+	                <table class="main" width="100%" cellpadding="0" cellspacing="0">
+	                    <tr>
+	                        <td class="content-wrap">
+	                            <table  cellpadding="0" cellspacing="0">
+	                                <tr>
+	                                	{{ content|safe }}
+	                                </tr>
+	                             </table>
+	                        </td>
+	                    </tr>
+	                </table>
+	            </div>
+	        </td>
+	    </tr>
+	</table>
+{% endblock %}

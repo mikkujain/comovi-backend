@@ -1,0 +1,1092 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-25 16:24+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\comovi\apps\website\forms.py:70 .\comovi\apps\website\forms.py:136
+#: .\comovi\apps\website\forms.py:168
+msgid "Nombre de pila"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:71 .\comovi\apps\website\forms.py:169
+msgid "Apellido"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:72
+msgid "Apellido de la madre"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:73
+msgid "Género"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:74
+msgid "Fecha de nacimiento"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:75 .\comovi\apps\website\forms.py:137
+#: .\comovi\apps\website\forms.py:170
+msgid "Teléfonoo"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:76
+msgid "Teléfono móvil"
+msgstr ""
+
+#: .\comovi\apps\website\forms.py:77 .\comovi\apps\website\forms.py:138
+#: .\comovi\apps\website\forms.py:171
+msgid "profile_picture"
+msgstr "Foto de perfil"
+
+#: .\comovi\apps\website\forms.py:134
+#: .\comovi\apps\website\templates\website\login.html:302
+msgid "Password"
+msgstr "contraseña"
+
+#: .\comovi\apps\website\forms.py:135
+msgid "Confirm Password"
+msgstr "Confirmar contraseña"
+
+#: .\comovi\apps\website\forms.py:152
+msgid "password did not match"
+msgstr "la contraseña no coincidió"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:6
+#: .\comovi\apps\website\templates\website\condinium_template.html:12
+#: .\comovi\apps\website\templates\website\condinum_user.html:175
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:6
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:12
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:26
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:52
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:161
+msgid "Historic user assignation"
+msgstr "Asignación histórica de usuarios"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:16
+#: .\comovi\apps\website\templates\website\inbox.html:15
+#: .\comovi\apps\website\templates\website\my_profile.html:42
+#: .\comovi\apps\website\templates\website\newspaper.html:16
+#: .\comovi\apps\website\templates\website\real-cerezos.html:11
+msgid "Home"
+msgstr "Casa"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:35
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:41
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:172
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:6
+#: .\comovi\apps\website\templates\website\user_display.html:167
+msgid "Interior Number"
+msgstr "Número interior"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:36
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:42
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:7
+msgid "Condominium Username"
+msgstr "Nombre de usuario del condominio"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:37
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:43
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: .\comovi\apps\website\templates\website\condinium_template.html:38
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:44
+msgid "End Date"
+msgstr "Fecha final"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:147
+msgid "Property manager condominium users"
+msgstr "Administrador de la propiedad usuarios de condominios."
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:150
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:16
+#: .\comovi\apps\website\templates\website\interior_detail.html:45
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:43
+#: .\comovi\apps\website\templates\website\property_dashboard.html:23
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:136
+#: .\comovi\apps\website\templates\website\user_display.html:44
+msgid "My Building"
+msgstr "Mi edificio"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:157
+#: .\comovi\apps\website\templates\website\user_display.html:50
+msgid "Manage condominiums"
+msgstr "Administrar condominios"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:172
+msgid "Add new condominium"
+msgstr "Añadir nuevo condominio"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:173
+msgid "No Interior Available"
+msgstr "No interior disponible"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:181
+msgid "Name"
+msgstr "Nombre"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:182
+#: .\comovi\apps\website\templates\website\condinum_user.html:472
+#: .\comovi\apps\website\templates\website\condinum_user.html:532
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:159
+#: .\comovi\apps\website\templates\website\user_display.html:154
+msgid "Last Name"
+msgstr "Apellido"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:183
+#: .\comovi\apps\website\templates\website\condinum_user.html:477
+#: .\comovi\apps\website\templates\website\condinum_user.html:537
+#: .\comovi\apps\website\templates\website\user_display.html:162
+msgid "Email id"
+msgstr "Identificación de correo"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:184
+#: .\comovi\apps\website\templates\website\condinum_user.html:480
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:169
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:266
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:295
+msgid "Interior number"
+msgstr "Numero interior"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:185
+msgid "Is active"
+msgstr "Está activo"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:186
+#: .\comovi\apps\website\templates\website\newspaper.html:48
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:174
+msgid "Action"
+msgstr "Acción"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:335
+msgid "Please Fill The Form"
+msgstr "Porfavor llene la forma"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:436
+#: .\comovi\apps\website\templates\website\interior_detail.html:104
+#: .\comovi\apps\website\templates\website\newspaper.html:72
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:189
+msgid "Edit"
+msgstr "Editar"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:436
+#: .\comovi\apps\website\templates\website\interior_detail.html:105
+#: .\comovi\apps\website\templates\website\newspaper.html:72
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:189
+msgid "Delete"
+msgstr "Borrar"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:458
+#: .\comovi\apps\website\templates\website\condinum_user.html:518
+#: .\comovi\apps\website\templates\website\condinum_user.html:575
+#: .\comovi\apps\website\templates\website\interior_detail.html:132
+#: .\comovi\apps\website\templates\website\interior_detail.html:159
+#: .\comovi\apps\website\templates\website\interior_detail.html:206
+#: .\comovi\apps\website\templates\website\interior_detail.html:218
+#: .\comovi\apps\website\templates\website\interior_detail.html:277
+#: .\comovi\apps\website\templates\website\login.html:327
+#: .\comovi\apps\website\templates\website\newspaper.html:373
+#: .\comovi\apps\website\templates\website\newspaper.html:448
+#: .\comovi\apps\website\templates\website\newspaper.html:508
+#: .\comovi\apps\website\templates\website\newspaper.html:530
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:256
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:285
+msgid "Close"
+msgstr "Cerrar"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:461
+msgid "Edit condominium"
+msgstr "Editar condominio"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:469
+#: .\comovi\apps\website\templates\website\condinum_user.html:529
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:153
+#: .\comovi\apps\website\templates\website\user_display.html:148
+msgid "First Name"
+msgstr "Nombre de pila"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:500
+msgid "Resend Current Password"
+msgstr "Reenviar contraseña actual"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:521
+msgid "Add New Condominiums"
+msgstr "Añadir Nuevos Condominios"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:541
+msgid "Interior"
+msgstr "Interior"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:578
+#: .\comovi\apps\website\templates\website\interior_detail.html:281
+#: .\comovi\apps\website\templates\website\newspaper.html:511
+msgid "Are you sure to want delete this record?"
+msgstr "¿Seguro que quieres borrar este registro?"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:582
+#: .\comovi\apps\website\templates\website\interior_detail.html:284
+#: .\comovi\apps\website\templates\website\newspaper.html:515
+msgid "No"
+msgstr "No"
+
+#: .\comovi\apps\website\templates\website\condinum_user.html:583
+#: .\comovi\apps\website\templates\website\interior_detail.html:285
+#: .\comovi\apps\website\templates\website\newspaper.html:516
+msgid "Yes"
+msgstr "Sí"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:9
+#: .\comovi\apps\website\templates\website\property_dashboard.html:29
+msgid "Dashboard"
+msgstr "Tablero"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:26
+#: .\comovi\apps\website\templates\website\dashboard_2.html:84
+msgid "Monthly"
+msgstr "Mensual"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:27
+#, fuzzy
+#| msgid "Payments of the period"
+msgid "Payments of the period"
+msgstr "Pagos del periodo"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:32
+msgid "Total revenue"
+msgstr "Ingresos totales"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:40
+msgid "Still to be paid"
+msgstr "Pendientes de pago"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:52
+#: .\comovi\apps\website\templates\website\dashboard_2.html:83
+msgid "Today"
+msgstr "Hoy"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:66
+msgid "Unpaid Condominiums"
+msgstr "Condominos sin Pago"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:80
+#, fuzzy
+#| msgid "New orders"
+msgid "Orders"
+msgstr "Nuevos pedidos"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:85
+msgid "Annual"
+msgstr "Anual"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:100
+msgid "Total orders in period"
+msgstr "Total de pedidos en periodo"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:108
+#, fuzzy
+#| msgid "In the first month"
+msgid "Orders in the last month"
+msgstr "En el primer mes"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:116
+msgid "Monthly revenue of orders"
+msgstr "Ingresos mensuales de pedidos"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:136
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:8
+#, fuzzy
+#| msgid "Messages"
+msgid "Messages"
+msgstr "Mensajes"
+
+#: .\comovi\apps\website\templates\website\dashboard_2.html:147
+msgid "New messages"
+msgstr "Nuevos mensajes"
+
+#: .\comovi\apps\website\templates\website\footer.html:9
+#: .\templates\admin\base_site.html:57
+msgid "Powered by Crater Solutions"
+msgstr "Desarrollado por Crater Solutions"
+
+#: .\comovi\apps\website\templates\website\history.html:5
+msgid "Historical"
+msgstr "Histórico"
+
+#: .\comovi\apps\website\templates\website\history.html:11
+msgid "Historical of payments"
+msgstr "Asignación histórica de usuarios"
+
+#: .\comovi\apps\website\templates\website\history.html:22
+#: .\comovi\apps\website\templates\website\payments.html:22
+msgid "Department"
+msgstr "Departamento"
+
+#: .\comovi\apps\website\templates\website\history.html:23
+#: .\comovi\apps\website\templates\website\payments.html:23
+msgid "Service"
+msgstr "Servicio"
+
+#: .\comovi\apps\website\templates\website\history.html:24
+msgid "Payment date"
+msgstr "Fecha de pago"
+
+#: .\comovi\apps\website\templates\website\history.html:25
+msgid "Amount paid"
+msgstr "Cantidad pagada"
+
+#: .\comovi\apps\website\templates\website\history.html:26
+msgid "Approval Number"
+msgstr "Número de aprobación"
+
+#: .\comovi\apps\website\templates\website\history.html:27
+#: .\comovi\apps\website\templates\website\payments.html:27
+msgid "Actions"
+msgstr "Comportamiento"
+
+#: .\comovi\apps\website\templates\website\history.html:40
+msgid "Download voucher"
+msgstr "Descargar el cupón"
+
+#: .\comovi\apps\website\templates\website\inbox.html:5
+#: .\comovi\apps\website\templates\website\inbox.html:12
+#: .\comovi\apps\website\templates\website\inbox.html:18
+msgid "My messages"
+msgstr "Mis mensajes"
+
+#: .\comovi\apps\website\templates\website\inbox.html:30
+msgid "Search email"
+msgstr "Buscar correo electrónico"
+
+#: .\comovi\apps\website\templates\website\inbox.html:33
+msgid "Search"
+msgstr "Buscar"
+
+#: .\comovi\apps\website\templates\website\inbox.html:39
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:46
+msgid "Inbox"
+msgstr "Buzón de mensajes"
+
+#: .\comovi\apps\website\templates\website\inbox.html:47
+msgid "Refresh"
+msgstr "Refrescar"
+
+#: .\comovi\apps\website\templates\website\interior_condonium_user.html:23
+#: .\comovi\apps\website\templates\website\interior_detail.html:51
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:49
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:142
+msgid "Manage interiors"
+msgstr "Gestionar interiores"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:7
+msgid "Property Interior Page"
+msgstr "Página interior de la propiedad"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:42
+#: .\comovi\apps\website\templates\website\interior_detail.html:54
+msgid "Interior’s Detail Page"
+msgstr "Página de detalles del interior"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:74
+msgid "Detail tab"
+msgstr "Pestaña de detalles"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:82
+#, fuzzy
+#| msgid "Service"
+msgid "Services Applied"
+msgstr "Servicio"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:83
+#: .\comovi\apps\website\templates\website\interior_detail.html:220
+msgid "Add New Service"
+msgstr "Añadir nuevo servicio"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:88
+msgid "ID"
+msgstr "CARNÉ DE IDENTIDAD"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:89
+msgid "SERVICES"
+msgstr "SERVICIOS"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:90
+msgid "AMOUNT"
+msgstr "CANTIDAD"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:91
+msgid "PERIODICITY"
+msgstr "PERIODICIDAD"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:92
+msgid "ACTION"
+msgstr "ACCIÓN"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:119
+msgid "Condominium User"
+msgstr "Usuario de Condominio"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:120
+msgid "New Condominium User"
+msgstr "Nuevo usuario de condominio"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:134
+msgid "Moved Out Date"
+msgstr "Fecha de mudanza"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:139
+msgid "Leaved Date"
+msgstr "Fecha de la hoja"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:143
+#: .\comovi\apps\website\templates\website\newspaper.html:427
+#: .\comovi\apps\website\templates\website\newspaper.html:489
+msgid "Save"
+msgstr "Salvar"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:161
+msgid "Edit Interior Details"
+msgstr "Editar detalles del interior"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:169
+#: .\comovi\apps\website\templates\website\interior_detail.html:226
+msgid "Amount"
+msgstr "Cantidad"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:173
+#: .\comovi\apps\website\templates\website\interior_detail.html:242
+msgid "Periodicity"
+msgstr "Periodicidad"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:184
+msgid "Payment mode"
+msgstr "Modo de pago"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:185
+msgid "Credit card"
+msgstr "Tarjeta de crédito"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:186
+msgid "Transfer"
+msgstr "Transferir"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:187
+msgid "Cash"
+msgstr "Efectivo"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:190
+#: .\comovi\apps\website\templates\website\interior_detail.html:230
+msgid "Due Date"
+msgstr "Fecha de vencimiento"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:194
+#: .\comovi\apps\website\templates\website\interior_detail.html:234
+msgid "Status Payment"
+msgstr "Estado de pago"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:207
+#: .\comovi\apps\website\templates\website\user_profile.html:10
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:252
+msgid "Types of Service"
+msgstr "Tipos de servicio"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:262
+#: .\comovi\apps\website\templates\website\my_profile.html:154
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:269
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:299
+#: .\comovi\apps\website\templates\website\property_manager.html:96
+msgid "Submit"
+msgstr "Enviar"
+
+#: .\comovi\apps\website\templates\website\interior_detail.html:369
+msgid "Please Fill All The Details"
+msgstr "Por favor llene todos los detalles"
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:40
+#: .\comovi\apps\website\templates\website\user_display.html:41
+msgid "Perfil"
+msgstr ""
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:55
+#: .\comovi\apps\website\templates\website\user_display.html:53
+msgid "Condominium user profile"
+msgstr "Perfil de usuario de Condinium"
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:73
+#: .\comovi\apps\website\templates\website\my_profile.html:62
+#: .\comovi\apps\website\templates\website\user_display.html:70
+#, python-format
+msgid "%(m)s"
+msgstr ""
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:93
+#: .\comovi\apps\website\templates\website\my_profile.html:82
+#: .\comovi\apps\website\templates\website\user_display.html:90
+msgid "Profile Detail"
+msgstr "Detalle del perfil"
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:167
+msgid "Email"
+msgstr "Identificación de correo"
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:180
+#: .\comovi\apps\website\templates\website\user_display.html:175
+msgid "Phone"
+msgstr "Teléfonoo"
+
+#: .\comovi\apps\website\templates\website\interior_user_profile.html:186
+#: .\comovi\apps\website\templates\website\user_display.html:181
+msgid "Profile Picture"
+msgstr "Foto de perfil"
+
+#: .\comovi\apps\website\templates\website\login.html:264
+msgid "To add logo, edit the settings "
+msgstr "Para agregar logo, edita las configuraciones"
+
+#: .\comovi\apps\website\templates\website\login.html:264
+msgid "here"
+msgstr "aquí"
+
+#: .\comovi\apps\website\templates\website\login.html:296
+msgid "User"
+msgstr "Usuario"
+
+#: .\comovi\apps\website\templates\website\login.html:309
+msgid "I have access problems"
+msgstr "Tengo problemas de acceso"
+
+#: .\comovi\apps\website\templates\website\login.html:315
+msgid "Get in"
+msgstr "Entrar"
+
+#: .\comovi\apps\website\templates\website\login.html:328
+msgid "Forgot Password"
+msgstr "Se te olvidó tu contraseña"
+
+#: .\comovi\apps\website\templates\website\login.html:331
+msgid ""
+"Enter your email address and your password will be reset and emailed to you."
+msgstr ""
+"Ingrese su dirección de correo electrónico y su contraseña será restablecida "
+"y le será enviada por correo electrónico."
+
+#: .\comovi\apps\website\templates\website\login.html:336
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#: .\comovi\apps\website\templates\website\login.html:339
+#, fuzzy
+#| msgid "Resend Current Password"
+msgid "Send New Password"
+msgstr "Reenviar contraseña actual"
+
+#: .\comovi\apps\website\templates\website\my_profile.html:39
+#: .\comovi\apps\website\templates\website\my_profile.html:45
+msgid "Profile"
+msgstr "Perfil"
+
+#: .\comovi\apps\website\templates\website\my_profile.html:145
+#: .\comovi\apps\website\templates\website\property_manager.html:87
+msgid "Choose the file"
+msgstr "Elija el archivo"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:6
+#: .\comovi\apps\website\templates\website\newspaper.html:12
+#: .\comovi\apps\website\templates\website\newspaper.html:20
+msgid "Mural Newspaper"
+msgstr "Periódico mural"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:34
+msgid "Add Notice"
+msgstr "Añadir aviso"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:41
+msgid "Image"
+msgstr "Imagen"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:42
+#: .\comovi\apps\website\templates\website\newspaper.html:399
+#: .\comovi\apps\website\templates\website\newspaper.html:474
+msgid "Category"
+msgstr "Categoría"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:43
+#: .\comovi\apps\website\templates\website\newspaper.html:388
+#: .\comovi\apps\website\templates\website\newspaper.html:463
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:5
+msgid "Property Name"
+msgstr "Nombre de la propiedad"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:44
+#: .\comovi\apps\website\templates\website\newspaper.html:381
+#: .\comovi\apps\website\templates\website\newspaper.html:456
+msgid "Title"
+msgstr "Título"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:45
+#: .\comovi\apps\website\templates\website\property.html:64
+msgid "Description"
+msgstr "Descripción"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:47
+msgid "Active"
+msgstr "Activo"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:73
+msgid "Add an attachment"
+msgstr "Añadir un archivo adjunto"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:375
+msgid "Add New Notice"
+msgstr "Añadir nuevo aviso"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:390
+#: .\comovi\apps\website\templates\website\newspaper.html:465
+msgid "Select Property"
+msgstr "Seleccione propiedad"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:401
+#: .\comovi\apps\website\templates\website\newspaper.html:476
+msgid "Select Category"
+msgstr "selecciona una categoría"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:417
+#: .\comovi\apps\website\templates\website\newspaper.html:544
+msgid "Upload"
+msgstr "Subir"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:420
+msgid "Choose a file..."
+msgstr "Escoge un archivo..."
+
+#: .\comovi\apps\website\templates\website\newspaper.html:422
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:450
+msgid "Edit Notice"
+msgstr "Editar aviso"
+
+#: .\comovi\apps\website\templates\website\newspaper.html:533
+msgid "Choose an attachment file to upload."
+msgstr "Elija un archivo adjunto para subir."
+
+#: .\comovi\apps\website\templates\website\newspaper.html:538
+msgid "File"
+msgstr "Expediente"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:12
+msgid "My Buildings"
+msgstr "Mis edificios"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:26
+msgid "Payments"
+msgstr "Pagos"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:32
+msgid "Payment history"
+msgstr "Historial de pagos"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:39
+msgid "Notices"
+msgstr "Avisos"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:57
+#, fuzzy
+#| msgid "Reports"
+msgid "Reportes"
+msgstr "Reportes"
+
+#: .\comovi\apps\website\templates\website\partial_left_sidebar.html:59
+msgid "Rickshaw Charts"
+msgstr "Gráficos de rickshaw"
+
+#: .\comovi\apps\website\templates\website\partial_navbar.html:70
+msgid "Logout"
+msgstr "Cerrar sesión"
+
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:4
+msgid "Checkbox"
+msgstr "Caja"
+
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:9
+msgid "Priority"
+msgstr "Prioridad"
+
+#: .\comovi\apps\website\templates\website\partials\partial_email_table.html:10
+msgid "Date"
+msgstr "Fecha"
+
+#: .\comovi\apps\website\templates\website\password_reset_email.html:5
+#, fuzzy
+#| msgid "Mural Newspaper"
+msgid "Mural newspaper"
+msgstr "Periódico mural"
+
+#: .\comovi\apps\website\templates\website\pay.html:4
+#, fuzzy
+#| msgid "Payment mode"
+msgid "Payment service"
+msgstr "Modo de pago"
+
+#: .\comovi\apps\website\templates\website\pay.html:9
+msgid "Pay of"
+msgstr "Pago de"
+
+#: .\comovi\apps\website\templates\website\payments.html:5
+#, fuzzy
+#| msgid "My pending payments"
+msgid "Pending payments"
+msgstr "Mis pagos pendientes"
+
+#: .\comovi\apps\website\templates\website\payments.html:11
+msgid "My pending payments"
+msgstr "Mis pagos pendientes"
+
+#: .\comovi\apps\website\templates\website\payments.html:24
+msgid "Expiration date"
+msgstr "Fecha de caducidad"
+
+#: .\comovi\apps\website\templates\website\payments.html:25
+msgid "Amount payable"
+msgstr "Cantidad pagable"
+
+#: .\comovi\apps\website\templates\website\payments.html:26
+msgid "Status"
+msgstr "Estado"
+
+#: .\comovi\apps\website\templates\website\payments.html:38
+msgid "PENDING"
+msgstr "PENDIENTE"
+
+#: .\comovi\apps\website\templates\website\payments.html:46
+#: .\comovi\apps\website\templates\website\payments.html:56
+msgid "Pay"
+msgstr "Paga"
+
+#: .\comovi\apps\website\templates\website\payments.html:51
+#: .\comovi\apps\website\templates\website\payments.html:61
+#: .\comovi\apps\website\templates\website\payments.html:68
+msgid "Download receipt"
+msgstr "Descargar recibo"
+
+#: .\comovi\apps\website\templates\website\property.html:12
+msgid "Detail of the property"
+msgstr "Detalle de la propiedad"
+
+#: .\comovi\apps\website\templates\website\property.html:14
+msgid "My building"
+msgstr "Mi edificio"
+
+#: .\comovi\apps\website\templates\website\property.html:45
+msgid "Excluding Tax"
+msgstr "Excluyendo Impuestos"
+
+#: .\comovi\apps\website\templates\website\property.html:67
+msgid "Address"
+msgstr "Dirección"
+
+#: .\comovi\apps\website\templates\website\property.html:75
+msgid "Manage the interiors of the properties."
+msgstr "Administrar los interiores de las propiedades."
+
+#: .\comovi\apps\website\templates\website\property.html:76
+msgid "Manage condominium users"
+msgstr "Administrar usuarios de condominios."
+
+#: .\comovi\apps\website\templates\website\property.html:77
+msgid "View property dashboard"
+msgstr "Ver tablero de propiedades"
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:20
+msgid "Property Dashboard"
+msgstr "Panel de propiedades"
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:43
+msgid "Number of apartments in this building/property."
+msgstr "Número de apartamentos en este edificio / propiedad."
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:56
+msgid "Amount of money to pay"
+msgstr "Cantidad de dinero a pagar"
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:76
+msgid "Amount of money collected in the period (current month)"
+msgstr "Cantidad de dinero recaudado en el período (mes actual)"
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:78
+#: .\comovi\apps\website\templates\website\property_dashboard.html:93
+msgid "According to the total of the services paid by the condominium"
+msgstr "Según el total de los servicios pagados por el condominio."
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:91
+msgid "Percentage of interiors that have paid"
+msgstr "Porcentaje de interiores que han pagado."
+
+#: .\comovi\apps\website\templates\website\property_dashboard.html:106
+msgid "Percentage of interiors that have not paid"
+msgstr "Porcentaje de interiores que no han pagado."
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:133
+msgid "Property manage interior details"
+msgstr "Propiedad gestionar detalles interiores"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:160
+msgid "Add new interior"
+msgstr "Añadir nuevo interior"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:170
+msgid "Is available"
+msgstr "Está disponible"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:171
+msgid "Condominium User’s name"
+msgstr "Nombre de usuario del condominio"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:172
+msgid "How much should be paid in this month?"
+msgstr "¿Cuánto se debe pagar en este mes?"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:173
+msgid "How much is already paid in this month?"
+msgstr "¿Cuánto ya se paga en este mes?"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:182
+msgid "Empty"
+msgstr "Vacío"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:184
+msgid "Occupied"
+msgstr "Ocupado"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:259
+msgid "Add New Interior"
+msgstr "Añadir nuevo interior"
+
+#: .\comovi\apps\website\templates\website\property_manage_inetriors_details.html:288
+msgid "Edit Interior"
+msgstr "Editar Interior"
+
+#: .\comovi\apps\website\templates\website\property_manager.html:23
+#, fuzzy
+#| msgid "Property Name"
+msgid "Property Manager"
+msgstr "Nombre de la propiedad"
+
+#: .\comovi\apps\website\templates\website\real-cerezos.html:8
+#, fuzzy
+#| msgid "Real Cherry"
+msgid "Real Cherry"
+msgstr "Real Cerezos"
+
+#: .\comovi\apps\website\templates\website\user_display.html:182
+#, fuzzy
+#| msgid "Mobile phone"
+msgid "No file chosen"
+msgstr "Teléfono móvil"
+
+#: .\comovi\apps\website\views.py:63 .\comovi\apps\website\views.py:69
+msgid "Incorrect Password"
+msgstr "Contraseña incorrecta"
+
+#: .\comovi\apps\website\views.py:69
+msgid "User does not exist"
+msgstr "el usuario no existe"
+
+#: .\comovi\apps\website\views.py:284 .\comovi\apps\website\views.py:300
+#: .\comovi\apps\website\views.py:326
+msgid "Profile Successfully Updated"
+msgstr "Perfil actualizado correctamente"
+
+#: .\comovi\settings.py:128
+msgid "Spanish"
+msgstr "Español"
+
+#: .\comovi\settings.py:129
+msgid "English"
+msgstr "Inglés"
+
+#: .\templates\admin\base.html:11
+msgid "Admin"
+msgstr "Administración"
+
+#: .\templates\email\base.html:14
+msgid "Follow"
+msgstr "Seguir"
+
+#: .\templates\email\base.html:14
+msgid "Comovi"
+msgstr "Comovi"
+
+#: .\templates\email\base.html:14
+msgid "on Twitter."
+msgstr "en Twitter."
+
+#: .\templates\email\forgot_password.html:20
+msgid "Welcome to Comovi"
+msgstr "Bienvenido a comovi"
+
+#: .\templates\email\forgot_password.html:21
+#: .\templates\email\new_condonium_user.html:20
+#: .\templates\email\new_notice.html:20
+msgid "Dear"
+msgstr "querido"
+
+#: .\templates\email\forgot_password.html:26
+msgid ""
+"You have requested for your password reset and below is your password that "
+"you may use for your next login."
+msgstr ""
+"Ha solicitado restablecer su contraseña y a continuación se encuentra la "
+"contraseña que puede usar para su próximo inicio de sesión."
+
+#: .\templates\email\forgot_password.html:27
+#, fuzzy
+#| msgid "Password"
+msgid "New Password:"
+msgstr "contraseña"
+
+#: .\templates\email\forgot_password.html:32
+#: .\templates\email\new_condonium_user.html:30
+msgid "You may login from this link:"
+msgstr "Puedes iniciar sesión desde este enlace:"
+
+#: .\templates\email\forgot_password.html:32
+#: .\templates\email\new_condonium_user.html:30
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: .\templates\email\forgot_password.html:34
+#: .\templates\email\new_condonium_user.html:32
+#: .\templates\email\new_notice.html:36
+msgid "Thanks"
+msgstr "Gracias"
+
+#: .\templates\email\forgot_password.html:35
+#: .\templates\email\new_condonium_user.html:33
+#: .\templates\email\new_notice.html:37
+msgid "Comovi Team"
+msgstr "Equipo comovi"
+
+#: .\templates\email\new_condonium_user.html:20
+msgid "COMOVI welcomes you to the property:"
+msgstr "COMOVI le da la bienvenida a la propiedad:"
+
+#: .\templates\email\new_condonium_user.html:25
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Your Password:"
+msgstr "Confirmar contraseña"
+
+#: .\templates\email\new_message.html:20 .\templates\email\welcome.html:20
+msgid "Welcome To Comovi"
+msgstr ""
+
+#: .\templates\email\new_message.html:30
+msgid "There is a new message for you form:"
+msgstr "Hay un nuevo mensaje para tu formulario:"
+
+#: .\templates\email\new_message.html:35
+#, fuzzy
+#| msgid "Messages"
+msgid "Message:"
+msgstr "Mensajes"
+
+#: .\templates\email\new_notice.html:25
+msgid "There is a new notice for you."
+msgstr "Hay un nuevo aviso para usted."
+
+#: .\templates\email\welcome.html:30
+msgid "COMOVI Welcomes you to the property:"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Department"
+#~ msgid "payments"
+#~ msgstr "Departamento"
+
+#~ msgid "history"
+#~ msgstr "historia"
+
+#~ msgid "new_releases"
+#~ msgstr "nuevos lanzamientos"
+
+#~ msgid "email"
+#~ msgstr "correo electrónico"
+
+#, fuzzy
+#~| msgid "Extraordinary"
+#~ msgid "Extraordinarias"
+#~ msgstr "Extraordinarias"
+
+#, fuzzy
+#~| msgid "New visits"
+#~ msgid "Nuevas visitas"
+#~ msgstr "Nuevas visitas"
+
+#, fuzzy
+#~| msgid "Condominium Username"
+#~ msgid "Condominos sin Pago"
+#~ msgstr "Nombre de usuario del condominio"
+
+#, fuzzy
+#~| msgid "condinium user profile"
+#~ msgid "condominium user profile"
+#~ msgstr "perfil de usuario de condinium"
+
+#~ msgid "First name"
+#~ msgstr "Nombre de pila"
+
+#~ msgid "Surname"
+#~ msgstr "Apellido"
+
+#~ msgid "Mother's last name"
+#~ msgstr "Apellido de la madre"
+
+#~ msgid "Gender"
+#~ msgstr "Género"
+
+#~ msgid "Birthdate"
+#~ msgstr "Fecha de nacimiento"
+
+#~ msgid "Panuco 127"
+#~ msgstr "Panuco 127"
+
+#, fuzzy
+#~| msgid "Closed Bugambilias"
+#~ msgid "Cerrada Bugambilias"
+#~ msgstr "Cerrada Bugambilias"
+
+#, fuzzy
+#~| msgid "Consultorious South"
+#~ msgid "Consultorious Sur"
+#~ msgstr "Consultorious Sur"
+
+#~ msgid "Low value"
+#~ msgstr "Bajo valor"
+
+#~ msgid "You have 22 new messages and 16 waiting in the draft folder .."
+#~ msgstr "Tienes 22 mensajes nuevos y 16 esperando en la carpeta borrador.."
+
+#~ msgid "My Properties"
+#~ msgstr "Mis Inmuebles"
+
+#~ msgid "Axus Tower"
+#~ msgstr "Torre Axus"

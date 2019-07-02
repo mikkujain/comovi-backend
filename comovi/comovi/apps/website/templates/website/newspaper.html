@@ -1,0 +1,656 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+{% trans 'Mural Newspaper' %}
+{% endblock %}
+
+{% block content %}
+ <div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+  <div class="toast toast-success" style="">
+    <button type="button" class="toast-close-button" role="button">×</button>
+    <div class="toast-message"></div>
+  </div>
+</div>
+ 
+<style type="text/css">
+      #toast-container{
+        display: none;
+       } 
+       .invalid-feedback >  strong {
+        color: red;
+       }
+
+    span.file-ext {
+    display: block;
+    padding: 1px 0px;
+  }
+  span.file-ext a[href$=".docx"] {
+    background: url({% static '/webarch/format/docx.png' %}) left center no-repeat;    
+    padding-left: 20px;
+  }
+  span.file-ext a[href$=".pdf"] {
+    background: url({% static '/webarch/format/pdf.png' %}) left center no-repeat;
+    padding-left: 20px;
+  }
+   span.file a[href$=".xls"] {
+  /* Overwrite background */
+    background: url({% static '/webarch/format/xls.png' %}) left center no-repeat;
+    padding-left: 20px;
+  }
+  span.file-ext a[href$=".jpg"] {
+    background: url({% static '/webarch/format/jpg.gif' %}) left center no-repeat;
+    padding-left: 20px;
+  }
+  span.file-ext a[href$=".png"] {
+    background: url({% static '/webarch/format/png.png' %}) left center no-repeat;
+    padding-left: 20px;
+  }
+  span.file-ext a[href$=".txt"] {
+    background: url({% static '/webarch/format/txt.png' %}) left center no-repeat;
+    padding-left: 20px;
+  }
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+<div class="col-lg-10">
+<h2>{% trans 'Mural Newspaper' %}</h2>
+
+<ol class="breadcrumb">
+<li>
+<a href="{% url 'website:index' %}">{% trans 'Home' %}</a>
+</li>
+
+<li class="active">
+<strong>{% trans 'Mural Newspaper' %}</strong>
+</li>
+</ol>
+</div>
+
+<div class="ibox-content">
+  <div class="">
+    {% if not request.user.owner_profile %}  
+      <a href="javascript:void(0);" class="btn btn-primary " data-target="#Mymodal" data-toggle="modal"><i class="fa fa-plus"></i> {% trans 'Add Notice' %}</a>
+    {% endif %}
+  </div>
+  <br>
+  <table class="table table-striped table-bordered table-hover dataTables-example" id="editable1" >
+    <thead>
+      <tr>
+        <th>{% trans 'Image' %}</th>
+        <th>{% trans 'Category' %}</th>
+        <th>{% trans 'Property Name' %}</th>
+        <th>{% trans 'Title' %}</th>
+        <th>{% trans 'Description' %}</th>
+        <th>{% trans 'File Available' %}</th>
+        {% if not request.user.owner_profile %}
+          <th>{% trans 'Active' %}</th>
+          <th>{% trans 'Action' %}</th>
+        {% endif %}
+      </tr>
+    </thead>
+  <tbody>
+    {% for post in posts %}
+      <tr class="gradeX" id="post-{{post.id}}" {% if request.user.owner_profile %} data-value="{{ post.id }}" {% else %} data-value="{{ post.property.id }}" {% endif %}>
+      {% if post.cover_image %}
+        <td><img src="{{ post.cover_image.url }}" alt="" width="80px" height="60px" class="lazy hover-effect-img"></td>
+      {% else %}
+        <td></td>
+      {% endif %}
+      {% if post.category.name == 'Assemblies' %}
+        <td><b><u>{{ post.category }}</u><b></td>
+      {% else %}
+        <td>{{ post.category }}</td>
+      {% endif %}
+      <td>{{ post.property }}</td>
+      <td>{{ post.title }}</td>
+      <td style="max-width: 160px; word-break: break-all;">{{ post.body|safe }}</td>
+      <td>
+      {% for attachment in post.attachments.all %}
+        <span class="file-ext">
+        <a href="{{ attachment.file.url }}" target="_blank"> Download file</a>
+        </span>
+      {% endfor %}
+      </td>
+      {% if not request.user.owner_profile %}
+        {% if post.is_active == True %}
+          <td>Yes</td> 
+        {% else %}
+          <td> NO </td>
+        {% endif %}
+      
+        <td class="center" style="width:230px;"><a href="#" class="btn btn-primary "  value="#" data-targt='#EditModal' data-toggle="modal" onclick="return editNotice('{{ post.id }}', '{% url 'website:save_edit_notice' id=post.id %}')">{% trans 'Edit' %}</a> <a href="{{ post.id }}" class="btn btn-danger opendeletemodal" data-toggle="modal">{% trans 'Delete' %}</a>
+        <a href="#" class="btn btn-primary " data-toggle="modal" data-target="#uploadFiles" onclick="return setAttachmentUrl('{% url 'website:add_post_attachment' post_id=post.id %}')">Upload Files</a>
+        </td>
+      {% endif %}
+    {% endfor %} 
+  </tbody>
+  </table>
+
+</div>
+
+<script src="{% static 'webarch/js/plugins/summernote/summernote.min.js' %}"></script>
+<script>
+  function bs_input_file() {
+    $(".input-file").before(
+      function() {
+      if ( ! $(this).prev().hasClass('input-ghost') ) {
+        var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+        element.attr("name",$(this).attr("name"));
+        element.change(function(){
+        element.next(element).find('input').val((element.val()).split('\\').pop());
+        });
+        $(this).find("button.btn-choose").click(function(){
+        element.click();
+        });
+        $(this).find("button.btn-reset").click(function(){
+        element.val(null);
+        $(this).parents(".input-file").find('input').val('');
+        });
+        $(this).find('input').css("cursor","pointer");
+        $(this).find('input').mousedown(function() {
+        $(this).parents('.input-file').prev().click();
+        return false;
+        });
+        return element;
+        }
+      }
+    );
+  }
+  $(function() {
+    bs_input_file();
+    });
+    $(document).ready(function(){
+
+    $('.summernote').summernote();
+    $(".note-editable").each((i,e)=>{
+    $(e).attr("id","note_data"+i)
+    });
+    $(".note-codable").each((i,e)=>{
+    $(e).attr("name","body")
+    });
+
+  });
+  var edit = function() {
+  $('.click2edit').summernote({focus: true});
+  $('.summernote').attr('name', 'content');
+  };
+  var save = function() {
+  var aHTML = $('.click2edit').code(); 
+  $('.click2edit').destroy();
+  };
+</script>
+<script>
+  $(document).ready(function(){
+      $('.dataTables-example').DataTable({
+      dom: '<"html5buttons"B>lTfgitp',
+      buttons: [
+      {extend: 'print',
+      customize: function (win){
+      $(win.document.body).addClass('white-bg');
+      $(win.document.body).css('font-size', '10px');
+
+      $(win.document.body).find('table')
+      .addClass('compact')
+      .css('font-size', 'inherit');
+      }
+      }
+      ]
+
+      });
+
+  });
+
+</script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  if(document.URL.indexOf("#")==-1){
+        // Set the URL to whatever it was plus "#loaded".
+        url = document.URL+"#";
+        location = "#";
+        //Reload the page using reload() method
+        location.reload(true);
+    }
+
+
+  $(".gradeX").each(function() {
+    var notice_id = $(this).data('value');
+    $.ajax({
+      url: '{% url "website:SeenNews" %}',
+      type:"post",
+      data : {
+        "csrfmiddlewaretoken": "{{ csrf_token }}",
+        'id' : notice_id
+      },
+      success: function(d) {
+      },
+      error: function(x, e) {
+      }
+    });
+  });  
+
+
+$(".opendeletemodal").click(function(){
+  $('#myModal1').modal('toggle');
+  var tag = $(this).attr("href");
+  $("#confirmdeleteuserid").val(tag);
+ })
+
+
+$("#confirmdeleteuser").click(function(){
+    var id = $("#confirmdeleteuserid").val();
+    $.ajax(   // request url
+    {            
+      url: "{% url 'website:DeleteNotice' %}",
+      type: "post",
+      data: {
+            "csrfmiddlewaretoken": "{{ csrf_token }}",
+
+            "category_id": id,   
+          },
+      success: function(d) {
+          location.reload();
+          $('#toast-container').show();
+          $(".toast-message").html(d["message"]);
+
+          $('.toast-close-button').click(()=>{
+          $('#toast-container').hide();
+          });
+          setTimeout(()=>{
+          $('#toast-container').hide();
+          },3000);
+          }
+      });
+    });
+
+$("#Mymodal form").submit(function(e){
+  e.preventDefault();
+$("#Mymodal form textarea").val($("#Mymodal .note-editable").text());
+
+
+if (title =="" && category_id =="" && property_id =="")
+{ 
+  $('#Content-Error-add').fadeIn(1000);
+  document.getElementById("Content-Error-add").innerHTML='Please Fill The Form correctly';
+  setTimeout(function() { 
+  $('#Content-Error-add').fadeOut(1000); 
+  }, 5000);
+  return false;
+}
+debugger;
+var formData = new FormData(this);
+formData.set('body', $(".note-editable").html());
+formData.body=$(".note-editable").html();
+
+$('#disable').attr("disabled", true);
+
+$.ajax( 
+  { 
+    url: "{% url 'website:New_Notice' %}",
+    type: "post",
+    data: formData,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function(d) {
+      $('#toast-container').show();
+      $(".toast-message").html(d["message"]);
+
+      $('.toast-close-button').click(()=>{
+      $('#toast-container').hide();
+      });
+      setTimeout(()=>{
+      $('#toast-container').hide();
+      },3000);
+      setTimeout(function() {
+      $('#showtoast').modal('toggle');
+      }, 3000);
+      setTimeout(function() {
+      location.reload();
+    },100);
+      },
+    });
+
+    e.preventDefault();
+  })
+});
+
+
+function getErrorMessage(jqXHR, exception) {
+    var msg = '';
+    if (jqXHR.status === 0) {
+        msg = 'Not connect.\n Verify Network.';
+    } else if (jqXHR.status == 404) {
+        msg = 'Requested page not found. [404]';
+    } else if (jqXHR.status == 500) {
+        msg = 'Internal Server Error [500].';
+    } else if (exception === 'parsererror') {
+        msg = 'Requested JSON parse failed.';
+    } else if (exception === 'timeout') {
+        msg = 'Time out error.';
+    } else if (exception === 'abort') {
+        msg = 'Ajax request aborted.';
+    } else {
+        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+    }
+    alert(msg);
+}
+
+function saveEditNotice(id, url) {
+  var id = $("#EditModal").attr('data-id');
+  var title = $("#title1").val();
+  var cat_id = $("#category_id1").val();
+  var prop_id = $("#property_id1").val();
+  var body = $("#note_data1").html();
+  var img = $("#current-img").val();
+  $.ajax(
+      {
+        url : "{% url 'website:editnotice' %}",
+        type: "post",
+        data: {
+          "csrfmiddlewaretoken": "{{ csrf_token }}",
+          'id' : id,
+          'update' : 'ok',
+          'title' : title,
+          'category_id' : cat_id,
+          'property_id' : prop_id,
+          'body' : body,
+          'cover_image': img,
+        },
+        success: function(cover_image) {
+          console.log(cover_image)
+          location.reload();
+        },
+        error: function (jqXHR, exception) {
+            console.log(jqXHR);
+            alert("got error")
+            getErrorMessage(jqXHR, exception);
+        }
+      }
+    )
+};
+
+  
+function setAttachmentUrl(url) {
+  console.log(url);
+  $("#uploadFiles").attr('data-url', url);
+}
+
+function editNotice(id, url) {
+  
+  console.log("idd"+id)
+  $.ajax( 
+  { 
+    url: "{% url 'website:editnotice' %}",
+    type: "post",
+    data: {
+      "csrfmiddlewaretoken": "{{ csrf_token }}",
+      'id':id,
+      'update' : 'ko',
+    },
+    success: function(d) {
+      console.log(d)
+      $('#EditModal').attr('data-id', id);
+      $('#EditModal').attr('data-url', url);
+      $("#title1").val(d['data']['title']);
+      $("#category_id1").val(d['data']['category_id']);
+      $("#property_id1").val(d['data']['property_id']);
+      $("#note_data1").html(d['data']['body']);
+      $("#current-img").val(d['data']['cover_image']);
+      $("#current-img").attr("href", d['data']['cover_image']);
+      $('#EditModal').modal('toggle');
+    },
+    error: function (jqXHR, exception) {
+            console.log(jqXHR);
+            alert("got error")
+            getErrorMessage(jqXHR, exception);
+        }
+      
+  }) 
+}
+
+$("#showtoast1").on("click", function(e) {
+  
+  //e.preventDefault();
+  alert('ghf');
+})
+</script>
+
+<div class="modal inmodal fade" id="Mymodal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <div class="img text-center"></div>
+        <h4 class="modal-title">{% trans 'Add New Notice' %}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form role="form" method="POST" enctype="multipart/form-data" action="">{% csrf_token %}
+          <div class="form-group row"><label class="col-lg-2 col-form-label">{% trans 'Title' %}</label> 
+            <div class="col-md-12"> <input type="text" placeholder="Title Name" id="title" class="form-control" name="title">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label class="col-lg-5 col-form-label">{% trans 'Property Name' %}</label>
+                <select class="selector-instance form-control" data-type="search-selector" name="property" id="property_id" >
+                  <option value="">{% trans 'Select Property' %}</option>
+                  {% for i in property %}
+                  <option value="{{ i.id }}">{{ i }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group"><label class="col-lg-5 col-form-label">{% trans 'Category' %}</label> 
+                <select class="selector-instance form-control" data-type="search-selector" name="category" id="category_id" >
+                  <option value="">{% trans 'Select Category' %}</option>
+                  {% for i in category %}
+                  <option value="{{ i.id }}">{{ i.name }}</option>
+                  {% endfor %}
+
+                </select>
+
+              </div>
+            </div>
+          </div>
+          <div class="summernote">
+
+          </div>
+          <div class="form-group">
+            <div class="input-group input-file" name="cover_image">
+              <span class="input-group-btn">
+              <button class="btn btn-primary btn-choose" type="button">{% trans 'Upload' %}</button>
+              </span>
+              <input type="text" class="form-control" id="Picture" placeholder='{% trans "Choose a file..." %}'  />
+              <span class="input-group-btn">
+              <button class="btn btn-warning btn-reset" type="button">{% trans 'Reset' %}</button>
+              </span>
+            </div>
+          </div> 
+          <div class="text-center">
+            <input type="submit" value="{% trans 'Save' %}" id="disable" class="btn btn-primary">
+          </div>
+          <div style="display: none;background: red;padding: 7px;color: #fff;" id="Content-Error-add"></div>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal inmodal fade" id="EditModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <div class="img text-center"></div>
+        <h4 class="modal-title">{% trans 'Edit Notice' %}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form role="form" method="POST"  enctype="multipart/form-data" action="">{% csrf_token %}
+          <div class="form-group row"><label class="col-lg-2 col-form-label">{% trans 'Title' %}</label> 
+            <div class="col-md-12"> 
+              <input type="text" placeholder="Title Name" id="title1" class="form-control">
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-lg-5 col-form-label">{% trans 'Property Name' %}</label>
+                  <select class="selector-instance form-control" data-type="search-selector" name="third-selector" id="property_id1" >
+                  <option value="">{% trans 'Select Property' %}</option>
+                  {% for i in property %}
+                  <option value="{{ i.id }}">{{ i }}</option>
+                  {% endfor %}
+
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group ">
+                  <label class="col-lg-5 col-form-label">{% trans 'Category' %}</label> 
+                  <select class="selector-instance form-control" data-type="search-selector" name="third-selector" id="category_id1" >
+                  <option value="">{% trans 'Select Category' %}</option>
+                  {% for i in category %}
+                  <option value="{{ i.id }}">{{ i.name }}</option>
+                  {% endfor %}
+
+                  </select>
+
+                </div>
+              </div>
+            </div>
+            <div class="summernote">
+            </div>
+            <div class="form-group">
+              <div class="input-group input-file" name="cover_image">
+                <span class="input-group-btn">
+                <button class="btn btn-primary btn-choose" type="button">{% trans 'Upload' %}</button>
+                </span>
+                <input type="text" class="form-control" id="current-img" placeholder='{% trans "Choose a file..." %}'  />
+                <span class="input-group-btn">
+                <button class="btn btn-warning btn-reset" type="button">{% trans 'Reset' %}</button>
+                </span>
+              </div>
+            </div> 
+            <div class="text-center">
+              <input type="button" value="{% trans 'Save' %}" id="showtoast1" onclick="return saveEditNotice();" class="btn btn-primary ">
+            </div>
+            <div class="alert alert-success" id="Content-Error-add" role="alert" style="display:none;" ></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal inmodal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
+              </div>
+              <div class="modal-body">
+             <p>{% trans "Are you sure to want delete this record?" %}</p>
+              </div>
+              <div class="modal-footer">
+                  <input type="hidden" id="confirmdeleteuserid" name="propertyid">
+                  <button type="button" class="btn btn-white" data-dismiss="modal">{% trans "No" %}</button>
+                  <button type="button" class="btn btn-primary" id="confirmdeleteuser" name="propertyid" data-dismiss="modal">{% trans "Yes" %}</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<!-- Page-Level Scripts -->
+<script type="text/javascript" src="{% static 'assets/js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script type="text/javascript" src="{% static 'assets/js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+<div class="modal fade  inmodal" id="uploadFiles" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    <p>
+                        Choose an attachment file to upload.
+                    </p> </div>
+      <div class="modal-body">
+                <input id="fileUpload" type="file" name="file" multiple style="display: none;" data-form-data="{'csrfmiddlewaretoken' : '{{ csrf_token }}' }">
+                <button type="button" id="upload-btn" class="btn btn-primary block full-width m-b">Open Files</button>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.note-editor .note-editable {
+padding: 20px;
+overflow: auto;
+outline: 0;
+background: #fff;
+min-height: 160px;
+}
+.note-editor {
+height: auto !important;
+min-height: 258px;
+}
+.html5buttons {
+float: right;
+display: none;
+}
+div#editable1_filter label {
+text-align: right!important;
+}
+.row-gp {
+margin: 13px 0 0;
+}
+.inmodal .modal-header {
+padding: 7px 15px;
+text-align: center;
+}
+.col-form-label {
+padding-top: 7px;
+white-space: nowrap;
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $("#EditModal").submit(function(e) {
+      e.preventDefault();
+      console.log('prevented from html');
+    });
+
+    $("#upload-btn").click(function() {
+      $("#fileUpload").click();
+    });
+
+    $("#fileUpload").fileupload({
+      dataType: 'json',
+      
+      done: function(e, data) {
+        location.reload();
+        // if (data.result.is_valid) {
+        //   $("#file-gal tbody").prepend(
+        //     "<tr><td><a href='"+data.result.url+"'>"+data.result.name+"</a></td></tr>"
+        //     )
+        // }
+      }
+    }).bind('fileuploadsubmit', function(e, data) {
+      console.log($("#uploadFiles").attr('data-url'));
+      data.url = $("#uploadFiles").attr('data-url');
+    });
+
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load static from staticfiles %}
+{% load preference_tags %}
+<!-- Preference variables -->
+{% preferences site_logo as site_logo %}
+{% preferences site_name as site_name %}
+{% preferences property_logo as property_logo %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>{{ site_name }} | {% block title %}{% endblock %}</title>
+    {% include 'website/partial_meta.html' %}
+    {% include 'website/base_css.html' %}
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'webarch/css/webarch.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static 'webarch/js/jquery-2.1.1.js' %}"></script>
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+<body>
+<div id="wrapper">
+  {% include 'website/partial_left_sidebar.html' %}
+
+  <div id="page-wrapper" class="gray-bg">
+  	{% include 'website/partial_navbar.html' %}
+    {% include 'website/footer.html' %}
+  	{% block content %}
+
+  	{% endblock %}  
+  </div>
+</div>
+{% include 'website/base_js.html' %}  
+<script src="{% static 'webarch/js/webarch.js' %}" type="text/javascript"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

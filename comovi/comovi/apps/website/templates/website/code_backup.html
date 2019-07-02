@@ -1,0 +1,15 @@
+{% if not request.user.unread_messages == 0 %}
+                      <span class=" badge badge-disable pull-right "></span>
+                        {{ request.user.unread_messages }}
+                      
+                    {% endif %} 
+
+
+
+
+
+
+
+                    {% if not request.user.unread_messages == 0 %}
+                                <span class="label label-danger">{{ request.user.unread_messages }}</span>
+                            {% endif %}

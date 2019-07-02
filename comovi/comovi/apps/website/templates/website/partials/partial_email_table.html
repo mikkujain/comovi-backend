@@ -1,0 +1,47 @@
+{% load i18n %}
+<table class="table table-hover table-mail">
+     <tbody>    <!--{{ message.property.interiors.select_related }} -->
+        <th>{% trans 'Checkbox' %}</th>
+        <th>{% trans 'Property Name' %}</th>
+        <th>{% trans 'Interior Number' %}</th>
+        <th>{% trans 'Condominium Username' %}</th>
+        <th>{% trans 'Messages' %}</th>
+        <th>{% trans 'Priority' %}</th>
+        <th class="text-right">{% trans 'Date' %}</th>
+        {% for message in messages %}
+            {% if not message.is_seen %}
+                <tr class="unread"  data-value="{{ message.id }}">
+                    <td class="check-mail">
+                        <input type="checkbox" class="i-checks">
+                    </td>
+                    <td class="mail-ontact"><a href="{% url 'website:inbox_detail' message.id %}">{{ message.property }}</a></td>
+                    <td><a href="{% url 'website:inbox_detail' message.id %}"></a></td>
+                    <td><a href="{% url 'website:inbox_detail' message.id %}"></a>{% for u in message.to.select_related %}{{ u }}{% endfor %}</td>
+                    <td class="mail-subject" style="word-break: break-all;"><a href="{% url 'website:inbox_detail' message.id %}">{{ message.message }}</a></td>
+                    <td class="clickable tablefull v-align-middle">
+                        {% if message.priority == 1 %}
+                            <span class="label label-primary">Simple</span>
+                        {% elif message.priority == 2 %}
+                            <span class="label label-danger">Important</span>
+                        {% else %}
+                            <span class="label label-yellow">High</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-right mail-date">{{ message.date_creation|date:"d M" }} {{ message.date_creation|time:"H:i" }}</td>
+                </tr>
+            {% else %}
+                <tr class="read" data-value="{{ message.id }}">
+                    <td class="check-mail">
+                        <input type="checkbox" class="i-checks">
+                    </td>
+                    <td><a href="{% url 'website:inbox_detail' message.id %}">{{ message.property }}</a></td>
+                    <td><a href="{% url 'website:inbox_detail' message.id %}">{% for i in message.property.interiors.select_related %}{{ i.number }}{% endfor %}</a></td>
+                    <td><a href="{% url 'website:inbox_detail' message.id %}"></a>{% for u in message.to.select_related %}{{ u }}{% endfor %}</td>
+                    <td class="mail-subject" style="word-break: break-all;"><a href="{% url 'website:inbox_detail' message.id %}">{{ message.message }}</a></td>
+                    <td class=""></td>
+                    <td class="mail-date">{{ message.date_creation|date:"d M" }} {{ message.date_creation|time:"H:i" }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

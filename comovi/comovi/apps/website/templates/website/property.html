@@ -1,0 +1,164 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    {{ object.name }}
+{% endblock %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>{% trans "Detail of the property" %}</h2>
+    <ol class="breadcrumb">
+      <li> <a href="{% url 'website:index' %}">{% trans "My building" %}</a> </li>
+      <li class="active"> <strong>{{ object.name }}</strong> </li>
+    </ol>
+  </div>
+  <div class="col-lg-2"> </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+  <div class="col-lg-12">
+  <div class="ibox product-detail">
+  <div class="ibox-content">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="flexslider">
+        <ul class="slides">
+          <li>  
+            {% if not object.building_picture %}
+              <img src="{% static 'webarch/img/building_logo.png' %}" alt="" style=" display: inline-block;" class="img-responsive">
+            {% else %}
+              <img src="{{ object.building_picture.url }}">
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  <div class="col-md-8">
+      <div class="row">
+          <div class="col-md-12">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="font-bold m-b-xs"> <a class="ediable">{{ object.name }}</a> </h2>
+      <small class="ediable">{{ property.service }}</small>
+      <div class="m-t-md">
+        <h2 class="product-main-price"><span class="ediable">$406,602</span> <small class="text-muted ediable">{% trans 'Excluding Tax' %}</small> </h2>
+      </div>
+    </div>
+    
+      <div class="col-md-4">
+
+        {% if not object.property_logo %}
+
+          <img src="{% static 'webarch/img/building_logo.png' %}" alt="" style=" display: inline-block;" class="img-responsive">
+
+        {% else %}
+
+          <img src="{{ object.property_logo.url }}" class="center-block" width="120" height="60" alt="">
+            
+        {% endif %}
+      </div>
+
+  </div>
+  <hr>
+    <h3 ediable="">{% trans "Description" %}</h3>
+    <div class="small text-muted" ediable="" data-type="textarea">{{ property.description }}</div>
+    <div class="dl-horizontal m-t-md small">
+    <h3 ediable="">{% trans "Address" %}</h3>
+    <p ediable="" data-type="textarea">{{ property.address.street }} {{ property.address.colony }} <br>
+      {{ property.address.city }}, {{ property.address.zip_code }} <br>
+      {{ property.address.state }} </p>
+  <hr>
+  </div>
+    <div class="text-left">
+      <div class="btn-group active-btn">
+        <a class="btn btn-primary btn-sm" href="{%url 'website:Property_manager_details' property.id %}" >{% trans "Manage the interiors of the properties." %}</a> 
+        <a class="btn btn-primary btn-sm" href="{%url 'website:condinium_manager_details' property.id %}">{% trans "Manage condominium users" %}</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'website:Property-Dashboard' property.id %}">{% trans "View property dashboard" %}</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>
+ <style type="text/css">
+     
+     .flex-direction-nav a:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+        content: '←';
+}
+.flex-direction-nav a.flex-next:before {
+    content: '→';
+}
+
+.flex-direction-nav a,.flex-direction-nav a:hover {
+    font-size: 0;
+    line-height: 0;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    padding: 0;
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.flexslider:hover .flex-direction-nav .flex-prev,
+.flexslider:hover .flex-direction-nav .flex-prev:hover,
+.flex-direction-nav .flex-prev {
+    left: -25px;
+}
+.flexslider:hover .flex-direction-nav .flex-next,
+.flexslider:hover .flex-direction-nav .flex-next:hover,
+.flex-direction-nav .flex-next {
+    right: -25px;
+    text-align: right;
+}
+.flex-control-paging li a {
+    width: 5px;
+    height: 5px;
+}
+.flexslider {
+    margin: 0 20px 60px;
+}
+.tiles .tiles-body {
+    padding: 10px;
+}
+.widget-stats {
+    padding-left: 0;
+    display: block;
+}
+.widget-stats .wrapper.last,
+.widget-stats .wrapper {
+    border-right: 1px solid rgba(0, 0, 0, 0.14);
+    background: rgba(0, 0, 0, 0.10);
+    padding: 3px 16px;
+    margin: 5px 0 5px 0;
+}
+.tiles .progress {
+    width: 100%!important;
+    margin-bottom: 13px;
+}
+ </style>
+
+{% endblock %}

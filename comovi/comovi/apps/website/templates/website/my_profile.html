@@ -1,0 +1,187 @@
+{% extends 'website/master.html' %}
+{% load i18n %}
+{% block title %}
+My Profile
+{% endblock %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+ 
+{% block content %}
+   <div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+    <div class="toast toast-success" style="">
+        <button type="button" class="toast-close-button" role="button">×</button><div class="toast-message"></div></div></div>
+ 
+    <style type="text/css">
+       #toast-container{
+        display: none;
+       } 
+       .invalid-feedback >  strong {
+        color: red;
+       }
+
+    </style>
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#id_phone,#id_cell_phone").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+        
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{% trans 'Profile' %}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'website:index' %}">{% trans 'Home' %}</a>
+            </li>
+            <li class="active">
+                <strong>{% trans 'Profile' %}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content">
+            {% if messages %}
+                {% for m in messages %}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#toast-container').show();
+                            $(".toast-message").html('{% blocktrans %}{{ m }}{% endblocktrans %}');
+
+                            $('.toast-close-button').click(()=>{
+
+                            $('#toast-container').hide();
+                            });
+                            setTimeout(()=>{
+
+                            $('#toast-container').hide();
+
+                            },3000);
+
+                            });
+                    </script>
+                {% endfor %}
+            {% endif %}
+            <div class="row animated fadeInRight">
+                
+                <div class="col-md-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>{% trans "Profile Detail" %}</h5></div>
+                        <div>
+                            {% with request.user.profile_picture as picture %}
+
+                              {% if picture %}
+                               <div class="ibox-content  border-left-right text-center">
+                                  <img alt="image" width="200" height="200"  src="{{ picture.url }}" style="display: inline-block;" />
+                                </div>
+
+                              {% else %}
+                              <div class="ibox-content no-padding border-left-right text-center">
+                               <img src="{% static 'assets/img/placeholder_profile_picture.webp' %}" 
+                                 alt="" style=" display: inline-block;" class="img-responsive"></div>
+
+                              {% endif %}
+
+                            {% endwith %}
+                            <div class="ibox-content profile-content">
+                                <h4><strong>{{ user.get_full_name }}</strong></h4>
+                                {% if request.user.email %}
+                                  <p><i class="fa fa-envelope"></i> {{ request.user.email }}</p>
+                                {% else %}
+                                  <p><i class="fa fa-envelope"></i> N/A</p>
+                                {% endif %}
+                                   <br>                      
+                                
+                                <div class="user-button">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                           
+
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                    </div>
+                <div class="col-md-8">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5></h5>
+                            <div class="ibox-tools">
+                               <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a> 
+                                
+                            </div>
+                        </div>
+                        <div class="ibox-content pd-0">
+
+                            <div>
+                                <div class="feed-activity-list">
+
+                                    <form method="POST"  enctype="multipart/form-data" class="form-inline custom-form" action="">{% csrf_token %}
+
+                                        {% for field in form %}
+                                            {% if field.name == 'profile_picture' %}
+                                                <div class="form-group">
+                                                  {{ field.label_tag }} 
+                                                <div class="custom-file">
+                                                    <input id="logo" type="file" class="custom-file-input" name="{{ field.name }}">
+                                                    <label for="logo" class="custom-file-label">{% trans "Choose the file" %}</label>
+                                                </div> </div> 
+                                            {% else %}
+                                                {{ field|as_crispy_field }}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                     <div class="form-group1 text-center custom-btn"> 
+                                      <br>
+                                        <input type=submit value="{% trans 'Submit' %}" id="showtoast" class="btn btn-primary btn-xs " /></div>
+                                    </div>                                      
+
+                                    </form>
+                                   
+                                </div>
+
+                             
+
+                            </div>
+<div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+   <style>
+       @media (max-width: 767px){
+ul.nav.navbar-top-links.navbar-right {
+    text-align: right;
+}
+}
+   </style>
+    <!-- Mainly scripts -->
+    
+
+
+
+
+
+{% endblock %}
+ 

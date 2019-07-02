@@ -1,0 +1,595 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% trans 'Property Interior Page' %}
+{% endblock %}
+
+
+{% block content %}
+
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $(".number").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+
+<div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+  <div class="toast toast-success" style="">
+      <button type="button" class="toast-close-button" role="button">×</button><div class="toast-message"></div></div></div>
+
+  <style type="text/css">
+     #toast-container{
+      display: none;
+     } 
+     .invalid-feedback >  strong {
+      color: red;
+     }
+
+  </style>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+      <h2>{% trans "Interior’s Detail Page" %}</h2>
+      <ol class="breadcrumb">
+          <li>
+              <a href="{% url 'website:index' %}">{% trans "My Building" %}</a>
+          </li>
+          <li class="active">
+              <strong><a href="{% url 'website:property' object.property.id %}">{{ object.property }}</a></strong>
+          </li>
+          <li class="active">
+              <strong><a href="{% url 'website:Property_manager_details' object.property_id %}">{% trans "Manage interiors" %}</a></strong>
+          </li>
+          <li class="active">
+              <strong>{% trans "Interior’s Detail Page" %}</strong>
+          </li>
+      </ol>
+  </div>
+  <div class="col-lg-2">
+
+  </div>
+</div>
+
+<div class="wrapper  wrapper-content animated fadeInRight custom-align">
+      <div class="row animated fadeInRight">
+        <div class="col-lg-9  col-md-10 col-sm-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5></h5>
+              <div class="ibox-tools"> <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a> </div>
+            </div>
+            <div class="ibox-content">
+              <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#tab-1">{% trans 'Detail tab' %}</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                      <form role="form" class="ct-form">
+                     <div class="row"> {% crispy form %}</div>
+                      <div class="form-group">
+                        <label>{% trans 'Services Applied' %}</label>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">{% trans 'Add New Service' %}</button>
+                        <div class="well">
+                           <table class="table table-striped table-bordered table-hover dataTables-example " id="editable1">
+                              <thead>
+                                <tr>
+                                  <th>{% trans 'ID' %}</th>
+                                  <th>{% trans 'SERVICES' %}</th>
+                                  <th>{% trans 'AMOUNT' %}</th>
+                                  <th>{% trans 'PERIODICITY' %}</th>
+                                  <th>{% trans 'ACTION' %}</th>
+                                </tr>
+                              </thead>
+                              <tbody>                                                            
+                                {% if object.propertyinteriorhasservice_set.select_related %}
+                                {% for i in object.propertyinteriorhasservice_set.select_related %}
+                                    <tr class="gradeX odd" role="row">
+                                        <td class="sorting_1">{{ forloop.counter }}</td>
+                                        <td>{{ i.service.name }}</td>
+                                        <td>{{ i.amount }}</td>
+                                        <td>{{i.service.get_periodicity_display}}</td>
+                                        <td class="center">
+                                          <a href="{{ i.id }}" class="btn btn-primary edit-interior" data-toggle="modal">{% trans 'Edit' %}</a> 
+                                          <a href="{{ i.id }}" class="btn btn-danger delete-interior-service" data-toggle="modal">{% trans 'Delete' %}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                          </table>
+
+                        </div>
+                        </div>
+                      </div>
+                      
+      <div class="text-center">
+        <br>
+        <input type="submit"  data-toggle="modal" data-target="#condiniumModal" {% if object.resident %} value="{% trans 'Condominium User' %}" {% else %} disabled value="{% trans 'Condominium User' %}" {% endif %} class="btn btn-primary">
+        <a href="{% url 'website:condinium_manager_details' object.property.id %}" class="btn btn-primary">{% trans 'New Condominium User' %}</a>
+        <br>
+      </div>
+      </form>
+    </div>
+  </div>
+
+<div class="modal fade  inmodal" id="condiniumModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans 'Close' %}</span></button>
+        <i class="fa fa-laptop modal-icon"></i> 
+        <h4 class="modal-title">{% trans 'Moved Out Date' %}</h4>
+      </div>
+       <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+              <label><b>{% trans 'Leaved Date' %}</b></label>
+              <input type="date" class="form-control" id="newModifyDate" value="{{ object.id }}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="confirmed_save">{% trans 'Save' %}</button>
+          </div>
+          <span id ="error-date"></span>
+        </form>
+    </div> </div>
+  </div>
+</div> 
+
+
+
+
+<!-- Start Modal -->
+<div class="modal fade inmodal" id="myModal3" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans 'Close' %}</span></button>
+        <i class="fa fa-laptop modal-icon"></i>
+        <h4 class="modal-title">{% trans 'Edit Interior Details' %}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="well">
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+              <label>{% trans 'Amount' %}</label>
+              <input type="text" placeholder="" class="form-control number" id="EditTableAmout">
+            </div>
+            <div class="form-group">
+              <label>{% trans 'Periodicity' %}</label>
+              <select class="form-control" id="EditPeriodic">
+                {% for j in periodic %}
+                    <option value="{{ j.0 }}">
+                        {{ j.1 }}
+                    </option>
+                {% endfor %}
+              </select>
+            </div>
+            <input type="hidden" name="service_id" id="EditService_id">                                 
+            <div class="form-group">
+                <label>{% trans 'Payment mode' %}</label>
+                 <label class="checkbox-inline"><input type="checkbox" value="" id="credit_card_edit">{% trans 'Credit card' %}</label>
+                <label class="checkbox-inline"><input type="checkbox" value="" id="transfer_edit">{% trans 'Transfer' %}</label>
+                <label class="checkbox-inline"><input type="checkbox" value="" id="cash_edit">{% trans 'Cash' %}</label> 
+            </div>
+            <div class="form-group">
+              <label>{% trans 'Due Date' %}</label>
+              <input type="date" id="editDueDate" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>{% trans 'Status Payment' %}</label>
+              <select id="editpaymentstatus">
+                {% for ps in payment_status %}
+                  <option value="{{ ps.0 }}">{{ ps.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>                                                
+          </div>
+        </div>
+        <div style="display: none;background: red;padding: 7px;color: #fff;" id="Content-Error-add"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-dismiss="modal">{% trans 'Close' %}</button>
+        <button type="button" class="btn btn-primary validate_condominiums_edit">{% trans 'Save changes' %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans 'Close' %}</span></button>
+        <i class="fa fa-laptop modal-icon"></i>
+        <h4 class="modal-title">{% trans 'Add New Service' %}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <input type="hidden" id="Interior_id" value="{{ object.id }}"/>
+          <div class="form-group">
+            <label>{% trans 'Amount' %}</label>
+            <input type="text" placeholder="Amount" id="newAmount" class="form-control number">
+          </div>
+          <div class="form-group">
+            <label>{% trans 'Due Date' %}</label>
+            <input type="date" id="newDueDate" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>{% trans 'Status Payment' %}</label>
+            <select id="newpaymentstatus">
+              {% for ps in payment_status %}
+                <option value="{{ ps.0 }}">{{ ps.1 }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{% trans 'Periodicity' %}</label>
+            <select class="form-control" id="newPeriodic">
+              {% for j in periodic %}
+                  <option value="{{ j.0 }}">
+                      {{ j.1 }}
+                  </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{% trans 'Types of Service' %}</label>
+            <select id="newCatalogservice">
+              {% for c in catalog %}
+                <option value="{{ c.id }}">{{ c.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div style="display: none;background: red;padding: 7px;color: #fff;" id="Content-Error-New"></div>
+          <br/>
+          <div class="text-center">
+            <input type="submit" value="{% trans 'Submit' %}" id="AddNewServiceSubmit" class="btn btn-primary"/>
+          </div><br/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade  inmodal" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans 'Close' %}</span></button>
+        <i class="fa fa-laptop modal-icon"></i> </div>
+      <div class="modal-body">
+        <input type="hidden" id="service_id_delete"/>
+        <p>{% trans 'Are you sure to want delete this record?' %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-dismiss="modal">{% trans 'No' %}</button>
+        <button type="button" class="btn btn-primary" id="confirmed_delete">{% trans 'Yes' %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(".edit-interior").on('click',function(e){
+     var tag = $(this).attr("href");
+     $.ajax(   // request url
+      {            
+        url: "{% url 'website:getInteriorServiceDetail' %}",
+        type: "post",
+        data: {
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+              "service_id": tag
+            },
+        success: function(d) {
+            $('#myModal3').modal('toggle');
+            $('#EditTableAmout').val(d["amount"]);
+            $('#EditPeriodic').val(d["service"]);
+            $('#EditService_id').val(d["id"]);
+            $('#editDueDate').val(d["duedate"]);
+            $('#editpaymentstatus').val(d["status_payment"]);
+          },
+
+        error: function (err) {
+             $('#Content-Error-add').fadeIn(1000);
+             document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+             setTimeout(function() { 
+              $('#Content-Error-add').fadeOut(1000); 
+             }, 5000);
+             setTimeout(function() { 
+              $('#AddUserModal').modal('toggle');
+             }, 5000);
+          },
+      });
+  });
+  
+  $(".delete-interior-service").on('click', function(e){
+    var tag = $(this).attr("href");
+    $('#myModal1').modal('toggle');
+    $('#service_id_delete').val(tag);
+  });
+
+  $("#confirmed_delete").on('click', function(e){
+    id = $('#service_id_delete').val();
+    $.ajax(   // request url
+      {            
+        url: "{% url 'website:deleteInteriorService' %}",
+        type: "post",
+        data: {
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+              "service_id": id
+            },
+        success: function(d) {
+            $('#toast-container').show();
+            $(".toast-message").html(d["message"]);
+
+            $('.toast-close-button').click(()=>{
+
+            $('#toast-container').hide();
+            });
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 2000); 
+          },
+        error: function (err) {
+             $('#Content-Error-add').fadeIn(1000);
+             document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+             setTimeout(function() { 
+              $('#Content-Error-add').fadeOut(1000); 
+             }, 5000);
+             setTimeout(function() { 
+              $('#AddUserModal').modal('toggle');
+             }, 5000);
+          },
+      });
+  });
+
+  $(".validate_condominiums_edit").on("click", function(e){
+      if(!$("#credit_card_edit").is(":checked") && !$("#transfer_edit").is(":checked") && !$("#cash_edit").is(":checked")) {
+        $('#Content-Error-add').fadeIn(1000);
+         document.getElementById("Content-Error-add").innerHTML='{% trans "Please Fill All The Details" %}';
+         setTimeout(function() { 
+            $('#Content-Error-add').fadeOut(1000); 
+           }, 5000);
+        return false;
+      }
+      $.ajax(   // request url
+      {            
+        url: "{% url 'website:updateInteriorService' %}",
+        type: "post",
+        data: {
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+              "service_id": $("#EditService_id").val(),
+              "payment_type": $("#updatepaymenttype").val(),
+              "updatedamount": $("#EditTableAmout").val(),
+              "periodic": $("#EditPeriodic").val(),
+              "duedate": $("#editDueDate").val(),
+              "paymentstatus": $("#editpaymentstatus").val()
+
+            },
+        success: function(d) {            
+            $('#toast-container').show();
+            $(".toast-message").html(d["message"]);
+
+            $('.toast-close-button').click(()=>{
+
+            $('#toast-container').hide();
+            });
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 2000); 
+          },
+
+        error: function (err) {
+             $('#Content-Error-add').fadeIn(1000);
+             document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+             setTimeout(function() { 
+              $('#Content-Error-add').fadeOut(1000); 
+             }, 5000);
+             setTimeout(function() { 
+              $('#AddUserModal').modal('toggle');
+             }, 5000);
+          },
+      });
+      e.preventDefault();
+  });
+
+  $('#confirmed_save').on('click', function(e){
+    var id = "{{ object.id }}";
+    var modifydate = $('#newModifyDate').val();
+    if(!modifydate) {
+        $("#error-date").text('Please Fill All Details');
+          setTimeout(function() { 
+            $('#error-date').fadeOut(1000); 
+           }, 2000);
+
+        return false;
+      }
+      $.ajax(
+      {
+        url: "{% url 'website:ModifyDate' %}",
+        type:"post",
+        data: {
+            "csrfmiddlewaretoken": "{{ csrf_token }}",
+            'id':id,
+            'modifydate': modifydate,
+        },
+        success: function(d) {
+            $('#toast-container').show();
+            $(".toast-message").html(d["message"]);
+
+            $('.toast-close-button').click(()=>{
+
+            $('#toast-container').hide();
+            });
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 2000); 
+          },
+
+          error: function (err) {
+             $('#Content-Error-add').fadeIn(1000);
+             document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+             setTimeout(function() { 
+              $('#Content-Error-add').fadeOut(1000); 
+             }, 5000);
+             setTimeout(function() { 
+              $('#AddUserModal').modal('toggle');
+             }, 5000);
+          },
+      });
+      e.preventDefault();
+  });
+
+  $("#AddNewServiceSubmit").on('click', function(e){
+    var Interior_id = "{{ object.id }}";
+    var amount = $("#newAmount").val();
+    var duedate = $("#newDueDate").val();
+    var payment_status = $("#newpaymentstatus").val();
+    var Periodicity = $("#newPeriodic").val();
+    var catalog = $("#newCatalogservice").val();
+    if(!Interior_id || !amount || !duedate || !payment_status || !Periodicity || !catalog) {
+        $('#Content-Error-New').fadeIn(1000);
+         document.getElementById("Content-Error-New").innerHTML='Please Fill All Details';
+         setTimeout(function() { 
+            $('#Content-Error-New').fadeOut(1000); 
+           }, 5000);
+        return false;
+      }
+      $.ajax(   // request url
+      {            
+        url: "{% url 'website:createInteriorService' %}",
+        type: "post",
+        data: {
+              "csrfmiddlewaretoken": "{{ csrf_token }}",
+              "Interior_id": Interior_id,
+              "amount": amount,
+              "duedate": duedate,
+              "payment_status": payment_status,
+              "Periodicity": Periodicity,
+              "catalog": catalog,
+            },
+        success: function(d) {
+            $('#toast-container').show();
+            $(".toast-message").html(d["message"]);
+
+            $('.toast-close-button').click(()=>{
+
+            $('#toast-container').hide();
+            });
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 2000); 
+          },
+
+        error: function (err) {
+              //alert("in error "+err)
+              console.log(err)
+             $('#Content-Error-add').fadeIn(1000);
+             document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+             setTimeout(function() { 
+              $('#Content-Error-add').fadeOut(1000); 
+             }, 5000);
+             setTimeout(function() { 
+              $('#AddUserModal').modal('toggle');
+             }, 5000);
+          },
+      });
+    e.preventDefault();
+
+
+
+  });
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+
+                $('.dataTables-example').DataTable({
+
+                });
+
+                /* Init DataTables */
+                var oTable = $('#editable1').DataTable();
+
+                /* Apply the jEditable handlers to the table */
+                oTable.$('td').editable('../example_ajax.php', {
+                    "callback": function (sValue, y) {
+                        var aPos = oTable.fnGetPosition(this);
+                        oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                    },
+                    "submitdata": function (value, settings) {
+                        return {
+                            "row_id": this.parentNode.getAttribute('id'),
+                            "column": oTable.fnGetPosition(this)[2]
+                        };
+                    },
+
+                    "width": "90%",
+                    "height": "100%"
+                });
+
+
+            });
+
+
+</script>
+<style type="text/css">
+ .custom-align .tab-content .tab-pane {
+    padding: 0;
+}
+ .custom-align  .tabs-container .nav-tabs {
+    margin-bottom: 0;
+    background-color: transparent;
+    padding: 0;
+}
+ .custom-align  .dataTables_wrapper {
+    padding-bottom: 0;
+}
+ .custom-align  div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+ .custom-align  .well {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    margin-top: 10px;
+}
+ .custom-align  div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: right;
+}
+div#div_id_number, div#div_id_resident {
+    width: 50%;
+    float: left;
+    padding: 0 15px;
+}
+</style>
+<!--- End Modal -->
+{% endblock %}

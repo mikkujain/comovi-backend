@@ -1,0 +1,609 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}
+    {{ object.name }}
+{% endblock %}
+
+{% block content %}
+
+  <div id="toast-container" class="toast-top-right" aria-live="polite" role="alert" style="display: none;">
+  <div class="toast toast-success" style="">
+      <button type="button" class="toast-close-button" role="button">×</button><div class="toast-message"></div></div></div>
+  <link rel="stylesheet" type="text/css" href="http://www.cssscript.com/demo/convenient-select-list-enhancement-selector/styles/main.min.css">
+              <script type="text/javascript" src="http://www.cssscript.com/demo/convenient-select-list-enhancement-selector/scripts/main.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function () {
+      new Selector();
+    //called when key is pressed in textbox
+    $("#interior_id, #new_interior_number").keypress(function (e) {
+       //if the letter is not digit then display error and don't type anything
+       if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+          //display error message
+          $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                 return false;
+      }
+     });
+
+    $("#reset-btn").click(function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: "{% url 'website:password_reset' %}",
+        type: 'POST',
+        data: {'csrfmiddlewaretoken' : '{{ csrf_token }}', 'email' : $("#email").val()},
+       success: function(d) {
+                        //alert("in success")
+          $('#toast-container').show();
+          $(".toast-message").html(d["message"]);
+
+          $('.toast-close-button').click(()=>{
+
+          $('#toast-container').hide();
+          });
+          setTimeout(function(){
+             window.location.reload(1);
+          }, 2000); 
+        },
+        error: function(d) {
+          console.log(d);
+        }
+      });
+    });
+
+    
+     //$(".selector-options.options-search >div:not(:first)").wrapAll("<div class='tes'>");
+  });
+  </script>
+  <style type="text/css">
+
+    .html5buttons {
+    float: right;
+    display: none;
+      }
+      div#editable1_filter label {
+          text-align: right!important;
+      }
+      .row-gp {
+          margin: 13px 0 0;
+      }
+    
+     #toast-container{
+      display: none;
+     } 
+     .invalid-feedback >  strong {
+      color: red;
+     }
+  div.selector-element div.selector-options div.option-search input:focus {
+      border: 2px solid #168ff7b8;
+  }
+  div.selector-element div.selector-selected {
+      cursor: pointer;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #FFFFFF;
+      background-image: none;
+      border: 1px solid #e5e6e7;
+      border-radius: 1px;
+      color: inherit;
+      display: block;
+      padding: 0 12px;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+      width: 100%;
+      min-height: 0;
+      line-height: 37px;
+      font-size: 13px;
+      color: #555555;
+      height: 37px;
+  }
+  div.selector-element {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      height: 32px;
+      font-family: sans-serif;
+      font-size: .83em;
+      color: #232323;
+      background-color: white;
+  }
+  div.selector-element div.selector-options div.option-search input {
+      background: url(http://webapplayers.com/inspinia_admin-v2.9.2/css/plugins/chosen/chosen-sprite.png) no-repeat 100% -20px, #fff;
+      border: 1px solid #e5e6e7;
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+      margin: 1px 0;
+      padding: 2px 20px 1px 4px!important;
+      width: 100%;
+      height: 33px;
+      line-height: 30px;
+      min-height: 0;
+  }
+  div.selector-element div.selector-options div.option-search {
+      display: block;
+      position: relative;
+      width: 100%;
+      border-bottom: 1px solid grey;
+      padding: 2px;
+      height: auto;
+  }
+  div.selector-element div.selector-options.options-search {
+      top: 37px;
+      border: 1px solid #e5e6e7;
+      box-shadow: none;
+  }
+
+  div.selector-element div.selector-options div.selector-option{
+      line-height: 24px;
+      list-style: none;
+      margin: 0;
+      padding: 5px 6px;
+      height: auto;
+      font-size: 13px;
+      background-color: #none;
+      background-image: none;
+      color: #555555;
+      border: 0;
+  }
+  div.selector-element div.selector-options div.selector-option.option-selected {
+      font-size: 13px;
+      background-color: #1ab394;
+      color: white;
+
+  }
+  div.selector-element div.selector-options div.selector-option:hover {
+      font-size: 13px;
+      background-color: #1ab394;
+      color: white;
+
+  }
+  </style>
+  <script type="text/javascript">
+  $(document).ready(function () {
+    //called when key is pressed in textbox
+    $("#interior_id, #new_interior_number").keypress(function (e) {
+       //if the letter is not digit then display error and don't type anything
+       if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+          //display error message
+          $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                 return false;
+      }
+     });
+  });
+  </script>
+
+      <div id="wrapper">
+
+              <div class="row wrapper border-bottom white-bg page-heading">
+                  <div class="col-lg-10">
+                      <h2>{% trans "Property manager condominium users" %}</h2>
+                      <ol class="breadcrumb">
+                          <li>
+                              <a href="{% url 'website:index' %}">{% trans "My Building" %}</a>
+                          </li>
+                  
+                          <li class="active">
+                              <strong><a href="{% url 'website:property' object.id %}">{{ object.name }}</a></strong>
+                          </li>
+                          <li class="active">
+                              <strong>{% trans "Manage condominiums" %}</strong>
+                          </li>
+                      </ol>
+                  </div>
+                  <div class="col-lg-2">
+
+                  </div>
+              </div>
+          <div class="wrapper wrapper-content animated fadeInRight">  
+              <div class="row">
+              <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+              <div class="ibox-content">
+              <div class="">
+              <a onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary btn_add" data-toggle="modal" {% if available_interiors %}data-target="#AddUserModal"{% else %}disabled{% endif %}>{% trans "Add new condominium" %}</a>
+              {% if not available_interiors %}<span>{% trans "No Interior Available" %}</span>{% endif%}
+              </div>
+               <br>
+              <table class="table table-striped table-bordered table-hover dataTables-example " id="editable1">
+              <thead>
+              <tr>
+                  <th>{% trans "Name" %}</th>
+                  <th>{% trans "Last Name" %}</th>
+                  <th>{% trans "Email id" %}</th>
+                  <th>{% trans "Interior number" %}</th>
+                  <th>{% trans "Is active" %}</th>
+                  <th>{% trans "Action" %}</th>
+              </tr>
+              </thead>
+
+              <script type="text/javascript">
+
+                     $(document).ready(function() {
+                    $('.js-example-basic-single').select2();
+                    });
+                $(document).ready(function(){
+              
+                  $(".btn_edit").click(function(){
+                  $('#myModal').modal('toggle');
+                  var tag = $(this).attr("href");
+                 var vl1= $.trim($(this).closest(".gradeX").find("td:first").text());
+                 var vl2= $.trim($(this).closest(".gradeX").find("td:nth-child(2)").text());
+                 var vl3= $.trim($(this).closest(".gradeX").find("td:nth-child(3)").text());
+                 var vl4= $.trim($(this).closest(".gradeX").find("td:nth-child(4)").text());
+                 var vl5= $.trim($(this).closest(".gradeX").find("td:nth-child(5)").text());
+                  $("#first_name").val(vl1);
+                  $("#last_name").val(vl2);
+                  $("#email").val(vl3);
+                  console.log(vl2)
+                  $("#interior_id").val(vl4);
+                  $("#resident_id").val(tag);
+
+                   if(vl5=="Empty"){
+
+                    $(" #yes").prop("checked",true);
+                    $(" #no").prop("checked",false);
+                   }
+                   else{
+                    $("#no").prop("checked",true);
+                    $("#yes").prop("checked",false);
+                   }
+                 })
+                });
+               </script>
+
+               <script type="text/javascript">
+                 $(document).ready(function(){
+                    $("#confirmdeleteuser").click(function(){
+                      var id = $("#confirmdeleteuserid").val();
+                      $.ajax(   // request url
+                      {            
+                        url: "{% url 'website:DeleteUserById' %}",
+                        type: "post",
+                        data: {
+                              "csrfmiddlewaretoken": "{{ csrf_token }}", 
+                              "property_id": "{{ property_id }}",
+                              "user_id": id
+                            },
+                        success: function(d) {
+                            location.reload();
+                            console.log(d);
+                            }
+                        });
+                      });
+                 });
+               </script>
+
+               <script type="text/javascript">
+                 
+                $(document).ready(function(){
+              
+                  $(".opendeletemodal").click(function(){
+                    $('#myModal1').modal('toggle');
+                    var tag = $(this).attr("href");
+                    $("#confirmdeleteuserid").val(tag);
+                   })
+                });
+               </script>
+
+               <script type="text/javascript">
+                 $(document).ready(function(e){
+                  $("#AddUserResident").click(function(){
+                    var fN = $('#f_name').val()
+                    var lN = $('#l_name').val()
+                    var em = $('#new-email').val()
+                    var iN = $('#interior_id_add').val()
+                    
+                      if(fN==""||lN==""||em==""||iN==""|| iN==1){
+                          //alert(fN+" "+lN+" "+em+" "+iN);
+                         $('#Content-Error-add').fadeIn(1000);
+                           document.getElementById("Content-Error-add").innerHTML='Please Fill The Form correctly';
+                           setTimeout(function() { 
+                              $('#Content-Error-add').fadeOut(1000); 
+                             }, 5000);
+                         return false;
+                      }
+                    $.ajax(   // request url
+                    {            
+                      url: "{% url 'website:create_resident_interior' %}",
+                      type: "post",
+                      data: {
+                            "csrfmiddlewaretoken": "{{ csrf_token }}",
+                            "first_name": fN,
+                            "last_name": lN,
+                            "email": em,
+                            "interior_id": iN,
+                          },
+                      success: function(d) {
+                        //alert("in success")
+                          $('#toast-container').show();
+                          $(".toast-message").html(d["message"]);
+
+                          $('.toast-close-button').click(()=>{
+
+                          $('#toast-container').hide();
+                          });
+                          setTimeout(function(){
+                             window.location.reload(1);
+                          }, 2000); 
+                        },
+
+                      error: function (err) {
+
+                           $('#Content-Error-add').fadeIn(1000);
+                           document.getElementById("Content-Error-add").innerHTML=err.responseJSON['error'];
+                           setTimeout(function() { 
+                            $('#Content-Error-add').fadeOut(1000); 
+                           }, 5000);
+                           setTimeout(function() { 
+                            $('#AddUserModal').modal('toggle');
+                           }, 5000);
+                        },
+                      });
+                      e.preventDefault();
+                    });
+                  });
+               </script>
+               <script type="text/javascript">
+                $(document).ready(function(){
+                  $("#showtoast").click(function(e){
+                   if($('#interior_id').val()==1){
+                         $('#Content-Error').fadeIn(1000);
+                           document.getElementById("Content-Error").innerHTML='Please Fill The Form correctly';
+                           setTimeout(function() { 
+                              $('#Content-Error').fadeOut(1000); 
+                             }, 5000);
+                         return false;
+                      }
+                    $.ajax(   // request url
+                    {            
+                      url: "{% url 'website:UpdateUserById' %}",
+                      type: "post",
+                      data: {
+                            "csrfmiddlewaretoken": "{{ csrf_token }}", 
+                            "property_id": "{{ property_id }}",
+                            "first_name": $('#first_name').val(),
+                            "last_name": $('#last_name').val(),
+                            "email": $('#email').val(),
+                            "id": $('#resident_id').val(),
+                            "interior_id": $('#interior_id').val(),
+                            "active": $('.activestate:checked').val()
+                          },
+                      success: function(d) {
+                        //alert("in success")
+                          $('#toast-container').show();
+                          $(".toast-message").html(d["message"]);
+
+                          $('.toast-close-button').click(()=>{
+
+                          $('#toast-container').hide();
+                          });
+                          setTimeout(function(){
+                             window.location.reload(1);
+                          }, 2000); 
+                        },
+
+                      error: function (err) {
+                           $('#Content-Error').fadeIn(1000);
+                           document.getElementById("Content-Error").innerHTML=err.responseJSON['error'];
+                           setTimeout(function() { 
+                            $('#Content-Error').fadeOut(1000); 
+                           }, 5000);
+                           setTimeout(function() { 
+                            $('#AddUserModal').modal('toggle');
+                           }, 5000);
+                        },
+                      });
+                    });
+
+                  
+                  });
+              $(".btn_add").click(function(){
+                $("#first_name").val("");
+                  $("#last_name").val("");
+                  $("#email").val("");
+                  $(" #yes").prop("checked",true);
+                  $("#interior_id").val("");
+                  $("#resident_id").val("");
+                  });
+         
+
+                   $(document).ready(function(){
+              $('.dataTables-example').DataTable({
+                  dom: '<"html5buttons"B>lTfgitp',
+                  buttons: [
+                      { extend: 'copy'},
+                      {extend: 'csv'},
+                      {extend: 'excel', title: 'ExampleFile'},
+                      {extend: 'pdf', title: 'ExampleFile'},
+
+                      {extend: 'print',
+                       customize: function (win){
+                              $(win.document.body).addClass('white-bg');
+                              $(win.document.body).css('font-size', '10px');
+
+                              $(win.document.body).find('table')
+                                      .addClass('compact')
+                                      .css('font-size', 'inherit');
+                      }
+                      }
+                  ]
+
+              });
+          });
+
+            </script>
+              <tbody>
+                {% for u in object.interiors.select_related %}
+                  {% if u.resident %}    
+                    <tr class="gradeX"  >
+                      <td>{{ u.resident.first_name }}</td>
+                      <td>{{ u.resident.last_name }}
+                      </td>
+                      <td><a href="{% url 'website:User_Display_Details' u.id %}">{{ u.resident.email }}</a></td>
+                      <td class="center">{{ u.number }} </td>
+                      {% if u.status_occupancy == 1 %}
+                        <td class="center">Empty</td>
+                      {% else %}
+                        <td class="center">Occupied</td>
+                      {% endif %}
+                      <td class="center"><a href="{{ u.resident.id }}" class="btn btn-primary btn_edit" data-toggle="modal" id="openeditmodal">{% trans "Edit" %}</a> <a href="{{ u.resident.id }}" class="btn btn-danger opendeletemodal" data-toggle="modal">{% trans "Delete" %}</a></td>
+                  </tr>
+                  {% endif %}
+                {% endfor %}
+         
+                 </tbody>
+              </table>
+
+              </div>
+              </div>
+              </div>
+              </div>
+          </div>
+
+          </div>
+          </div>
+
+                         
+    <div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
+                    <i class="fa fa-laptop modal-icon"></i>
+                    <div class="img text-center"></div>
+                    <h4 class="modal-title">{% trans "Edit condominium" %}</h4>
+                   
+                </div>
+                <div class="modal-body">
+               
+            <form role="form">
+            <div class="row"> 
+              <div class="col-sm-6">
+                <div class="form-group"><label>{% trans "First Name" %}</label> <input type="text" placeholder="Name" id="first_name" class="form-control" required="required"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group"><label>{% trans "Last Name" %}</label> <input type="text" placeholder="Last Name" id="last_name" class="form-control" required="required"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group"><label>{% trans "Email id" %}</label> <input type="email" placeholder="Email" id="email" class="form-control" required="required"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group"><label>{% trans "Interior number" %}</label>
+
+                <select class="selector-instance form-control" data-type="search-selector" name="third-selector" id="interior_id" >
+
+
+                  <option value="1" data-sublocale="HELLO" selected></option>
+                  {% for i in available_interiors %}
+                    <option value="{{ i.number }}">{{ i.number }}</option>
+                  {% endfor %}
+
+                </select>
+
+                </div>
+              </div>
+            </div>
+  <input type="hidden" id="resident_id" name="resident_id">
+            <div class="text-center">    
+                <input type="button" value="Save" id="showtoast" class="btn btn-primary ">
+            </div>
+            <br>
+           <div class="text-center"> <a href="#" id="reset-btn">{% trans "Resend Current Password" %}<b> </b></a> </div>
+            <div class="alert alert-success" id="Content-Error" role="alert" style="display:none;"></div>
+            <br/>
+        </form>
+      
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+  {% if available_interiors %}
+    <!-- Add new user modal -->
+    <div class="modal inmodal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+        <div class="modal-content ">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
+                  <i class="fa fa-laptop modal-icon"></i>
+                   <div class="img text-center"></div>
+                  <h4 class="modal-title">{% trans "Add New Condominiums" %}</h4>
+                 
+              </div>
+            <div class="modal-body">
+               
+              <form role="form">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group"><label>{% trans "First Name" %}</label> <input type="text" placeholder='{% trans "First Name" %}' id="f_name" class="form-control" required="required"></div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group"><label>{% trans "Last Name" %}</label> <input type="text" placeholder='{% trans "Last Name" %}' id="l_name" class="form-control" required="required"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group"><label>{% trans "Email id" %}</label> <input type="email" placeholder='{% trans "Email" %}' id="new-email" class="form-control" required="required"></div>
+                  </div>
+                  {% if available_interiors %}
+                  <div class="col-sm-6">
+                    <div class="form-group"><label>{% trans 'Interior' %}</label>
+                      <select class="selector-instance form-control" data-type="search-selector" name="third-selector" id="interior_id_add" >
+          
+                      <option value="1" data-sublocale="HELLO" selected></option>
+
+                      {% for i in available_interiors %}
+                        <option value="{{ i.id }}">{{ i.number }}</option>
+                      {% endfor %}
+
+                      </select>
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              <div class="text-center">
+                  <input type="button" value="{% trans 'Add' %}" id="AddUserResident" class="btn btn-primary ">
+              </div>
+              <div class="alert alert-success" id="Content-Error-add" role="alert" style="display:none;" ></div>
+        
+            </form>
+
+            </div>
+                
+          </div>
+        </div>
+    </div>
+    <!-- End new user -->
+  {% endif %}
+
+                              
+    <div class="modal inmodal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
+                    <i class="fa fa-laptop modal-icon"></i>
+                     <div class="img text-center"></div>
+                </div>
+                <div class="modal-body">
+               <p>{% trans "Are you sure to want delete this record?" %}</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="confirmdeleteuserid" name="userid">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">{% trans "No" %}</button>
+                    <button type="button" class="btn btn-primary" id="confirmdeleteuser" data-dismiss="modal">{% trans "Yes" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

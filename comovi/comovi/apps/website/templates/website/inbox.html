@@ -1,0 +1,216 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block title %}
+    My Conversations
+{% endblock %}
+
+{% block content %}
+<div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+  <div class="toast toast-success" style="">
+    <button type="button" class="toast-close-button" role="button">×</button>
+    <div class="toast-message"></div>
+  </div>
+</div>
+
+<style type="text/css">
+  #toast-container{
+    display: none;
+   } 
+   .invalid-feedback >strong {
+    color: red;
+   }
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+      <h2>{% trans 'My messages' %}</h2>
+      <ol class="breadcrumb">
+          <li>
+              <a href="{% url 'website:index' %}">{% trans "Home" %}</a>
+          </li>
+          <li class="active">
+              <strong>{% trans 'My messages' %}</strong>
+          </li>
+      </ol>
+  </div>
+</div> 
+
+   
+<div class="wrapper wrapper-content">
+    <div class="row">
+      
+        <div class="col-lg-12 animated fadeInRight">
+            <div class="mail-box-header">
+
+                <form method="get" action="." class="pull-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <h2>
+                    Inbox 
+                </h2>
+                <div class="mail-tools tooltip-demo m-t-md">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                        <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+
+                    </div>
+                    <a href="{% url 'website:inbox' %}"><button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left"><i class="fa fa-refresh"></i> Refresh</button></a>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"><i class="fa fa-eye"></i> </button>
+                    <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"><i class="fa fa-exclamation"></i> </button>
+                    {% if delete %}
+                      <button class="btn btn-white btn-sm  checkbox_delete" data-toggle="tooltip" data-target="myModal" data-placement="top"><i class="fa fa-trash-o"></i> </button>
+                    {% endif %}
+
+                </div>
+        </div>
+        <div class="mail-box">
+            <table class="table table-hover table-mail">
+                <tbody>
+                    <th>{% trans 'Checkbox' %}</th>
+                    <th>{% trans 'Property Name' %}</th>
+                    <th>{% trans 'Interior Number' %}</th>
+                    <th>{% trans 'Condominium Username' %}</th>
+                    <th>{% trans 'Messages' %}</th>
+                    <th>{% trans 'Priority' %}</th>
+                    <th class="text-right">{% trans 'Date' %}</th>
+                    {% for con in convs %}
+                      {% if un_seen %}                      
+                        <tr class="unread" {% if not request.user.is_root %} data-value="{{ con.id }}" {% endif %}>
+                            <td class="check-mail">
+                                <input name="inbox_val" type="checkbox" class="i-checks" value="{{ con.id }}">
+                            </td>
+                            <td class="mail-ontact"><a href="{{ con.get_absolute_url }}">{{ con.property_interior.property.name }}</a></td>
+                            <td><a href="{{ con.get_absolute_url }}">{{ con.property_interior.number }}</a></td>
+                            <td><a href="{{ con.get_absolute_url }}">{{ con.property_interior.resident.username }}</a></td>
+                            <td class="mail-subject" style="word-break: break-all;"><a href="{{ con.get_absolute_url }}">{{ con.get_last_message.message }}</a></td>
+                            <td class="clickable tablefull v-align-middle">
+                                <a href="{{ con.get_absolute_url }}">
+                                    {% if con.priority == 1 %}
+                                        <span class="label label-primary">priority_low</span>
+                                    {% elif con.priority == 2 %}
+                                        <span class="label label-danger">priority_medium</span>
+                                    {% else %}
+                                        <span class="label label-yellow">priority_high</span>
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td class="text-right mail-date"><a href="{{ con.get_absolute_url }}">{{ con.get_last_message.date_creation|date:"d M Y H:i" }}</a></td>
+                        </tr>
+
+                      {% else %}
+                        <tr class="read" data-value="{{ con.id }}">
+                          <td class="check-mail">
+                              <input name="inbox_val" type="checkbox" class="i-checks" value="{{ con.id }}">
+                          </td>
+                          <td class="mail-ontact"><a href="{{ con.get_absolute_url }}">{{ con.property_interior.property.name }}</a></td>
+                          <td><a href="{{ con.get_absolute_url }}">{{ con.property_interior.number }}</a></td>
+                          <td><a href="{{ con.get_absolute_url }}">{{ con.property_interior.resident.username }}</a></td>
+                          <td class="mail-subject" style="word-break: break-all;"><a href="{{ con.get_absolute_url }}">{{ con.get_last_message.message }}</a></td>
+                          <td class="clickable tablefull v-align-middle">
+                              <a href="{{ con.get_absolute_url }}">
+                                  {% if con.priority == 1 %}
+                                      <span class="label label-primary">priority_low</span>
+                                  {% elif con.priority == 2 %}
+                                      <span class="label label-danger">priority_medium</span>
+                                  {% else %}
+                                      <span class="label label-yellow">priority_high</span>
+                                  {% endif %}
+                              </a>
+                          </td>
+                          <td class="text-right mail-date"><a href="{{ con.get_absolute_url }}">{{ con.get_last_message.date_creation|date:"d M Y H:i" }}</a></td>
+                        </tr>
+                      {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+  $(".unread").click(function(){
+
+  var id=$(this).data('value'); 
+      $.ajax(
+      {
+        url: "{% url 'website:SeenMsg' %}",
+        type:"post",
+        data: {
+            "csrfmiddlewaretoken": "{{ csrf_token }}",
+            'id':id,
+        },
+        success: function(d) {
+        console.log(d);
+      },
+      error: function(x, e) {
+        console.log(e);
+      }
+    });
+  });
+
+  $(".checkbox_delete").click(function(){
+
+    if(confirm('Are you sure you want to delete?')){
+      var message_id = [];
+      if(!message_id == ""){
+      $.each($("input[name='inbox_val']:checked"), function(){            
+          message_id.push($(this).val());
+      });
+    }
+
+      $.ajax({
+        url: "{% url 'website:DeleteMsg' %}",
+        type:"post",
+        data: {
+            "csrfmiddlewaretoken": "{{ csrf_token }}",
+            'id':message_id,
+        },
+        success: function(d){
+          location.reload();
+          console.log(message_id);
+          $('#toast-container').show();
+          $(".toast-message").html(d["message"]);
+
+          $('.toast-close-button').click(()=>{
+          $('#toast-container').hide();
+          });
+          setTimeout(()=>{
+          $('#toast-container').hide();
+          },3000);
+        }
+      });
+    }
+  });
+
+</script>
+
+<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">{% trans "Close" %}</span></button>
+                  <i class="fa fa-laptop modal-icon"></i>
+                   <div class="img text-center"></div>
+              </div>
+              <div class="modal-body">
+                <p>{% trans "Are you sure to want delete this message?" %}</p>
+              </div>
+              <div class="modal-footer">
+                  <input type="hidden" id="confirmdeleteinteriorid" name="userid">
+                  <button type="button" class="btn btn-white" data-dismiss="modal">{% trans "No" %}</button>
+                  <button type="button" class="btn btn-primary" id="confirmdeleteinterior" data-dismiss="modal">{% trans "Yes" %}</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock %}

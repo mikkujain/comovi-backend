@@ -1,0 +1,14 @@
+{% extends 'website/master.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ object }}
+{% endblock %}
+
+{% block content %}
+    <div class="page-title">
+        <h3><span class="semi-bold">{{ object }}</span></h3>
+    </div>
+{% endblock %}

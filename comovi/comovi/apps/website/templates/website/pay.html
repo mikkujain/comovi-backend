@@ -1,0 +1,85 @@
+{% extends 'website/master.html' %}
+
+{% block title %}
+Pago de servicio
+{% endblock %}
+
+{% block content %}
+<div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+	<div class="toast toast-success" style="">
+	    <button type="button" class="toast-close-button" role="button">×</button>
+	    <div class="toast-message"></div>
+	</div>
+</div>
+
+<style type="text/css">
+   #toast-container{
+    display: none;
+   } 
+   .invalid-feedback >  strong {
+    color: red;
+   }
+
+</style>
+
+    <div class="page-title"><br/>
+		<h3><span class="semi-bold alert alert-primary">Service Name  - {{ object.service }}</span></h3>
+		<h3><span class="semi-bold alert alert-primary">Amount  - {{ object.amount }}</span></h3>
+		<h3><span class="semi-bold alert alert-primary">Due Date  - {{ object.due_date }}</span></h3>
+		<h3><span class="semi-bold alert alert-primary">Interior Number  - {{ object.property_interior.number }}</span></h3>
+    </div>
+    <script src="https://www.paypal.com/sdk/js?client-id=AQCX7hsi7c9wiHFuHzb8c-CWn7P6Y1tW0znMXpisx7Khlmh3FR81lbwqqQqk31WQqkvoRucgEPTyo0wZ"></script>
+	<script>
+	  paypal.Buttons({
+	    createOrder: function(data, actions) {
+	      return actions.order.create({
+	        purchase_units: [{
+	          amount: {
+	            value: '{{ object.amount }}'
+	          }
+	        }]
+	      });
+	    },
+	    onApprove: function(data, actions) {
+	      return actions.order.capture().then(function(details) {
+	        console.log('Transaction completed by ' + details.payer);
+	        // Call your server to save the transaction
+	        return fetch("{% url 'website:get-data' %}", {
+	          method: 'post',
+	          headers: {
+	            'content-type': 'application/json'
+	          },
+	          body: JSON.stringify({
+	            orderID: data.orderID,
+	            serviceID: '{{ object.id }}'
+	          })
+	        }).then(function(res){
+	        	return res.json();
+	        }).then(function(details){
+	        	//alert('Transaction approved by ' + details);
+						if (details.error === 'INSTRUMENT_DECLINED') {
+							alert("fail transaction")
+							return actions.restart();
+						}
+	        	$('#toast-container').show();
+                $(".toast-message").html('Transaction Completed Successfully');
+
+                $('.toast-close-button').click(()=>{
+
+                $('#toast-container').hide();
+                });
+                setTimeout(()=>{
+
+                $('#toast-container').hide();
+
+                },3000);
+                setTimeout(()=>{
+						window.location.href = "{% url 'website:payments' %}";
+                    },2000);
+	        });
+	      });
+	    }
+	  }).render('#paypal-button-container');
+	</script>
+	<div id="paypal-button-container"></div>
+{% endblock %}

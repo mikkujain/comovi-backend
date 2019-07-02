@@ -1,0 +1,104 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Nuevo mensaje
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="grid simple">
+                                <div class="grid-body no-border" style="min-height: 850px;">
+                                    <br>
+                                    <div class="row-fluid ">
+                                        <h2>Nuevo mensaje </h2>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="form-label" for="to">Destinatario</label>
+                                                <span class="help">selecciona a quién quieres dirigir tu mensaje</span>
+                                                <div class="controls">
+                                                    <select class="form-control" id="to" name="to" required>
+                                                        {% if request.user.admin_profile %}
+                                                            <optgroup label="Condominios">
+                                                                {% for property in request.user.admin_profile.my_properties %}
+                                                                    <option value="property-{{ property.id }}">{{ property }}</option>
+                                                                {% endfor %}
+                                                            </optgroup>
+                                                            <optgroup label="Condóminos">
+                                                                {% for owner in request.user.admin_profile.my_owners %}
+                                                                    <option value="user-{{ owner.id }}">{{ owner.username }}</option>
+                                                                {% endfor %}
+                                                            </optgroup>
+                                                        {% else %}
+                                                            <optgroup label="Condominios">
+                                                                {% for property in request.user.owner_profile.my_properties %}
+                                                                    <option value="property-{{ property.id }}">{{ property }}</option>
+                                                                {% endfor %}
+                                                            </optgroup>
+                                                            <optgroup label="Administradores">
+                                                                {% for admin in request.user.owner_profile.my_admins %}
+                                                                    <option value="user-{{ admin.id }}">{{ admin.username }}</option>
+                                                                {% endfor %}
+                                                            </optgroup>
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="form-label" for="subject">Asunto</label>
+                                                <span class="help"></span>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="subject"
+                                                           id="subject"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                        <textarea id="text-editor" placeholder="Enter text ..." class="form-control"
+                                                  name="body"
+                                                  rows="25" required></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin-bar" id="quick-access" style="bottom: 0;">
+            <div class="admin-bar-inner">
+                <div class="form-horizontal">
+                </div>
+                <input class="btn btn-danger btn-cons btn-add" id="send" type="submit" value="Enviar">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.css' %}" rel="stylesheet"
+          type="text/css"/>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#text-editor').wysihtml5();
+            $("#quick-access").css("bottom", "0px");
+        });
+    </script>
+{% endblock %}

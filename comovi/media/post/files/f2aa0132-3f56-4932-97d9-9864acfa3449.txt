@@ -1,0 +1,17 @@
+Create an admin in the backend
+
+Admin can create 2 users with their login
+
+In the frontend - 
+
+Login >
+
+Form should be opened with the below informations
+
+1. First name
+
+2. Last name
+3. Email id
+3. Phone number
+4.Password Change
+5. Photo upload

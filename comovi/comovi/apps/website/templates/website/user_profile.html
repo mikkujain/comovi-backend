@@ -1,0 +1,12 @@
+{% extends 'website/master.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form action="." method="post" class="form-cusmtomize form-inline">
+  {% csrf_token %}
+  {{ form|crispy }}
+  
+ <div><button class="btn btn-primary" type="submit">{% trans 'Save changes' %}</button></div>
+</form>
+{% endblock %}

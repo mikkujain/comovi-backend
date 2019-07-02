@@ -1,0 +1,206 @@
+{% extends 'website/master.html' %}
+{% load i18n %}
+{% block title %}My Profile{% endblock %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+ 
+{% block content %}
+   <div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
+    <div class="toast toast-success" style="">
+        <button type="button" class="toast-close-button" role="button">×</button><div class="toast-message"></div></div></div>
+ 
+    <style type="text/css">
+       #toast-container{
+        display: none;
+       } 
+       .invalid-feedback >  strong {
+        color: red;
+       }
+       input {
+          background: #dddddd;
+          pointer-events:none;
+        }
+
+    </style>
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#id_phone,#id_cell_phone").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{% trans 'Perfil' %}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{% url 'website:index' %}">{% trans 'My Building' %}</a>
+            </li>
+            <li class="active">
+                <strong><a href="{% url 'website:property' object.property.id %}">{{ object.property }}</a></strong>
+            </li>
+            <li class="active">
+                <a href="{% url 'website:condinium_manager_details' object.property.id %}"><strong>{% trans 'Manage condominiums' %}</strong></a>
+            </li>
+            <li class="active">
+                <strong>{% trans 'Condominium user profile' %}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content">
+            {% if messages %}
+                {% for m in messages %}
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#toast-container').show();
+                            $(".toast-message").html('{% blocktrans %}{{ m }}{% endblocktrans %}');
+
+                            $('.toast-close-button').click(()=>{
+
+                            $('#toast-container').hide();
+                            });
+                            setTimeout(()=>{
+
+                            $('#toast-container').hide();
+
+                            },3000);
+
+                            });
+                    </script>
+                {% endfor %}
+            {% endif %}
+            <div class="row animated fadeInRight">                
+                <div class="col-md-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title"><h5>{% trans "Profile Detail" %}</h5></div>
+                        <div>
+                            {% with object.resident.profile_picture as picture %}
+
+                              {% if picture %}
+                               <div class="ibox-content  border-left-right text-center">
+                                  <img alt="image" width="200" height="200"  src="{{ picture.url }}" style="display: inline-block;" />
+                                </div>
+
+                              {% else %}
+                              <div class="ibox-content no-padding border-left-right text-center">
+                               <img src="{% static 'assets/img/placeholder_profile_picture.webp' %}" 
+                                 alt="" style=" display: inline-block;" class="img-responsive"></div>
+
+                              {% endif %}
+
+                            {% endwith %}
+                            <div class="ibox-content profile-content">
+                                <h4><strong>{{ object.resident.get_full_name }}</strong></h4>
+                                {% if object.resident.email %}
+                                  <p><i class="fa fa-envelope"></i> {{ object.resident.email }}</p>
+                                {% else %}
+                                  <p><i class="fa fa-envelope"></i> N/A</p>
+                                {% endif %}
+                                   <br>                      
+                                
+                                <div class="user-button">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                           
+
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                    </div>
+                <div class="col-md-8">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5></h5>
+                            <div class="ibox-tools">
+                               <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a> 
+                                
+                            </div>
+                        </div>
+                        <div class="ibox-content pd-0">
+
+                            <div>
+                                <div class="feed-activity-list">
+                                    <!-- {% crispy form %} -->
+                                    <div class="row">
+                                       <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <label>{% trans 'First Name' %}</label>
+                                    <input type="text" value="{{ object.resident.first_name }}" readonly class="form-control">
+                                    </div>
+                                  </div>
+                                   <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <label>{% trans 'Last Name' %}</label>
+                                    <input type="text" value="{{ object.resident.last_name }}" readonly class="form-control">
+                                    </div>
+                                  </div>
+                                  </div>
+                                   <div class="row">
+                                     <div class="col-sm-6">
+                                    <div class="form-group">
+                                    <label>{% trans 'Email id' %}</label>
+                                    <input type="text" value="{{ object.resident.email }}" readonly class="form-control">   </div>
+                                  </div>
+                                     <div class="col-sm-6">
+                                    <div class="form-group">                
+                                    <label>{% trans 'Interior Number' %}</label>
+                                    <input type="text" value="{{ object.number }}" readonly class="form-control">
+                                  </div>
+                                </div>
+                                </div>
+                                 <div class="row">
+                                   <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label>{% trans 'Phone' %}</label>
+                                    <input type="number" value="{{ object.resident.phone }}" readonly class="form-control">
+                                  </div>
+                                </div>
+                                 <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label>{% trans 'Profile Picture' %}</label>
+                                    <input type="file" value="{{ object.resident.profile_picture }}" class="form-control" placeholder="{% trans 'No file chosen' %}">
+                                  </div>
+                                 </div>
+                              </div>
+                              </div>
+                            </div>
+                          <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+   <style>
+       @media (max-width: 767px){
+ul.nav.navbar-top-links.navbar-right {
+    text-align: right;
+}
+}
+   </style>
+    <!-- Mainly scripts -->
+   
+
+{% endblock %}
+ 
